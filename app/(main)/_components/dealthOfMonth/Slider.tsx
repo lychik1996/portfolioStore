@@ -1,4 +1,5 @@
 "use client";
+import SliderButton from "@/components/SliderButton";
 import clsx from "clsx";
 import Image from "next/image";
 import { useState } from "react";
@@ -32,32 +33,7 @@ export default function SliderDealth(){
     return(
         <>
          <div className=" hidden md:flex items-end gap-1 mr-2">
-            <button
-              className={clsx(
-                "rounded-full px-3 py-[5px] bg-white",
-                count===0 && 'text-slate-400'
-              )}
-              disabled={count===0}
-              onClick={onClickLeft}
-              onMouseDown={(e) => e.currentTarget.style.boxShadow = '0px 4px 14px 1px rgba(0, 0, 0, 0.3)'}
-              onMouseUp={(e) => e.currentTarget.style.boxShadow = '0px 4px 14px 1px rgba(0, 0, 0, 0.16)'}
-              style={{ boxShadow: '0px 4px 14px 1px rgba(0, 0, 0, 0.16)' }}
-            >
-              &lt;
-            </button>
-            <button
-              className={clsx(
-                "rounded-full px-3 py-[5px] transition-shadow duration-100",
-                count===arrImg.length-1 && 'text-slate-400'
-              )}
-              onClick={onClickRight}
-              onMouseDown={(e) => e.currentTarget.style.boxShadow = '0px 4px 14px 1px rgba(0, 0, 0, 0.3)'}
-              onMouseUp={(e) => e.currentTarget.style.boxShadow = '0px 4px 14px 1px rgba(0, 0, 0, 0.16)'}
-              disabled={count===arrImg.length-1}
-              style={{ boxShadow: '0px 4px 14px 1px rgba(0, 0, 0, 0.16)'}}
-            >
-              &gt;
-            </button>
+         <SliderButton count={count} length={arrImg.length} onClickLeft={onClickLeft} onClickRight={onClickRight}/>
           </div>
           <div className="hidden overflow-x-hidden md:block relative">
             <div
@@ -68,7 +44,7 @@ export default function SliderDealth(){
               }}
             >
               {arrImg.map((item, i) => (
-                <div key={i} className="h-full relative">
+                <div key={i} className="h-full relative max-h-[288px] lg:max-h-none">
                   <Image
                     src={item.src}
                     className={clsx(

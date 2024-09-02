@@ -1,6 +1,11 @@
+import Slider from './Slider';
+
 export default function Rewiews() {
   return (
-    <div>
+    <div
+      className=" flex flex-col w-full items-center py-8 lg:py-14"
+      style={{ backgroundColor: 'rgb(250, 250, 250)' }}
+    >
       <div className="w-full flex flex-col items-center gap-5">
         <h3 className="opacity-70 text-xl md:text-2xl xl:text-3xl">
           This Is What Our Customers Say
@@ -10,6 +15,7 @@ export default function Rewiews() {
           duis
         </p>
       </div>
+      <Slider />
     </div>
   );
 }

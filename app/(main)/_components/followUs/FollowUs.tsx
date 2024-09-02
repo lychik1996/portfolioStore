@@ -13,7 +13,7 @@ export default function FollowUS() {
       </div>
       <div className="flex flex-row items-center justify-center mt-8 md:mt-16">
         {arr.map((item,i)=>(
-            <Image key={i} src={`/home/followUs/${item}.png`} className="2xl:w-[210px] xl:w-[180px] lg:w-[140px]  md:w-[105px] sm:w-[80px] max-w-[60px] sm:max-w-none  h-auto" width={140} height={140} alt=""/>
+            <Image key={i} src={`/home/followUs/${item}.png`} className="2xl:w-[210px] xl:w-[180px] lg:w-[140px]  md:w-[105px] sm:w-[80px] max-w-[55px] sm:max-w-none  h-auto" width={140} height={140} alt=""/>
         ))}
       </div>
     </div>
