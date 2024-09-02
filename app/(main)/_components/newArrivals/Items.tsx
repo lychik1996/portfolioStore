@@ -236,7 +236,7 @@ export default function Items({ selected }: Itemsprops) {
       debounceTimer =setTimeout(() => {
         
         if (window.innerWidth < 723) {
-          setVisibleItems(items[selected].slice(0, 2));
+          setVisibleItems(items[selected].slice(0, 3));
         } else {
           setVisibleItems(items[selected]);
         }

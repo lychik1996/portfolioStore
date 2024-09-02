@@ -7,7 +7,10 @@ const items = [
 ];
 export default function Packages() {
   return (
-    <div id="packages" className="flex flex-col items-center gap-6 justify-center w-full">
+    <div
+      id="packages"
+      className="flex flex-col items-center gap-6 justify-center w-full"
+    >
       <div
         className="flex flex-row justify-center  md:justify-between w-full xl:w-9/12"
         style={{ background: 'rgb(218, 218, 218)' }}
@@ -43,16 +46,30 @@ export default function Packages() {
           <button className="button  max-w-32 px-6">Buy Now</button>
         </div>
       </div>
-      <div className='flex flex-row flex-wrap w-5/6 xl:w-7/12 justify-center 2xl:justify-between gap-y-3 gap-x-7 '>
-        {items.map((item, i) => (
-          <div key={i} className='flex flex-row items-center gap-2 w-[236px] sm:w-auto'>
-            <Image src={`/home/packages/${item.src}.png`} className='h-[40px] w-auto border-dashed border-[1px] border-slate-400 rounded-sm' width={40} height={40} alt='' />
-            <div>
-              <p className='opacity-70 text-lg font-medium'>{item.p1}</p>
-              <p className='opacity-70 text-sm'>{item.p2}</p>
+      <div className='w-full flex justify-center items-center' style={{ boxShadow: '0px 20px 52.29px 0px rgba(68, 68, 68, 0.04);' }}>
+        <div
+          className="flex flex-row flex-wrap w-5/6 xl:w-7/12 justify-center 2xl:justify-between gap-y-3 gap-x-7 py-10"
+          
+        >
+          {items.map((item, i) => (
+            <div
+              key={i}
+              className="flex flex-row items-center gap-2 w-[236px] sm:w-auto"
+            >
+              <Image
+                src={`/home/packages/${item.src}.png`}
+                className="h-[40px] w-auto border-dashed border-[1px] border-slate-400 rounded-sm"
+                width={40}
+                height={40}
+                alt=""
+              />
+              <div>
+                <p className="opacity-70 text-lg font-medium">{item.p1}</p>
+                <p className="opacity-70 text-sm">{item.p2}</p>
+              </div>
             </div>
-          </div>
-        ))}
+          ))}
+        </div>
       </div>
     </div>
   );

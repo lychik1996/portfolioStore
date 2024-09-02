@@ -1,12 +1,12 @@
 'use client';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import Option from './HeaderOption';
 import { useEffect, useRef, useState } from 'react';
 import clsx from 'clsx';
 import { FaChevronDown, FaChevronUp } from 'react-icons/fa';
 import HeaderAction from './HeaderAction';
 import Portal from '@/components/Portal';
+import HeaderOption from './HeaderOption';
 let optionsHome = [
   {
     name: 'Deals',
@@ -108,7 +108,7 @@ export default function Header() {
                 <Portal isOpen={selectHome} reference={dropSelectHomeRef}>
                   <div className="absolute z-10 mt-2 lg:mt-3 py-1 lg:py-2 left-1/2 transform -translate-x-1/2 bg-white flex flex-col gap-1 lg:gap-2 items-center border rounded-md shadow-md">
                     {optionsHome.map((option, i) => (
-                      <Option
+                      <HeaderOption
                         name={option.name}
                         path={option.path}
                         setSelect={setSelectHome}
@@ -169,7 +169,7 @@ export default function Header() {
               <Portal isOpen={selectPages} reference={dropSelectPagesRef}>
                 <div className="absolute z-10 mt-2 lg:mt-3 py-1 lg:py-2 left-1/2 transform -translate-x-1/2 bg-white flex flex-col gap-1 lg:gap-2 items-center border rounded-md shadow-md">
                   {optionsPages.map((option, i) => (
-                    <Option
+                    <HeaderOption
                       name={option.name}
                       path={option.path}
                       setSelect={setSelectPages}
@@ -183,7 +183,7 @@ export default function Header() {
         ) : (
           <Portal isOpen={search} reference={searchRef}>
             <input
-              className="w-56 md:w-72 lg:w-96 pl-2 pb-[2px] outline-none border-b-2 border-slate-300 focus:border-black"
+              className="w-56 md:w-72 lg:w-96 pl-2 pb-[2px] outline-none border-b-2 rounded-none border-slate-300 focus:border-black"
               type="text"
               placeholder="Search..."
             />

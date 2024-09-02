@@ -5,7 +5,7 @@ interface OptionProps {
   path: string;
   setSelect: Function;
 }
-export default function Option({
+export default function HeaderOption({
   name,
   path,
   setSelect,
