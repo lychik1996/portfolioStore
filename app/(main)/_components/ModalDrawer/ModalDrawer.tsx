@@ -1,11 +1,10 @@
 'use client';
 import Portal from '@/components/Portal';
 import { useModalDrawer } from '@/store/use-modalDrawer';
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { IoMdClose } from 'react-icons/io';
 import Item from './Item';
 import Link from 'next/link';
-import clsx from 'clsx';
 const arr = [
   {
     src: '1',
@@ -40,6 +39,33 @@ export default function ModalDrawer() {
   const { isOpen, onClose } = useModalDrawer((state) => state);
   const [items, setItems] = useState(arr);
   const [subtotal, setSubtotal] = useState(0);
+  const startX = useRef<number>(0);
+
+  const handleTouchStart = (e:TouchEvent) => {
+    startX.current = e.touches[0].clientX;
+  };
+
+  const handleTouchMove = (e:TouchEvent) => {
+    const currentX = e.touches[0].clientX; 
+    const distance = currentX - startX.current;
+
+    if (distance > 100) { 
+      onClose(); 
+    }
+  };
+
+  useEffect(() => {
+    if (isOpen) {
+      document.addEventListener('touchstart', handleTouchStart);
+      document.addEventListener('touchmove', handleTouchMove);
+
+      return () => {
+        document.removeEventListener('touchstart', handleTouchStart);
+        document.removeEventListener('touchmove', handleTouchMove);
+      };
+    }
+  }, [isOpen]);
+  
   useEffect(() => {
     const newSubtotal = arr.reduce((acum, i) => acum + i.price * i.count, 0);
     setSubtotal(newSubtotal);
@@ -55,7 +81,6 @@ export default function ModalDrawer() {
       return updatedItems;
     });
   };
-
   return (
     <>
       {isOpen && (
