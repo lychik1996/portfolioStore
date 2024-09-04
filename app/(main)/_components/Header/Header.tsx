@@ -74,7 +74,7 @@ export default function Header() {
   }, []);
   
   return (
-    <header className="my-10 flex flex-row justify-between  w-5/6 xl:w-7/12 py-1 items-center">
+    <header className="my-5 sm:my-10 flex flex-row justify-between  w-5/6 xl:w-7/12 py-1 items-center">
       <h1 className=" text-2xl md:text-4xl uppercase">Fasco</h1>
       <div
         className="flex flex-row justify-between gap-2  md:gap-4 lg:gap-11"

@@ -1,4 +1,5 @@
 'use client';
+import { useModalDrawer } from '@/store/use-modalDrawer';
 import Link from 'next/link';
 import { FaRegUser, FaRegStar } from 'react-icons/fa';
 import { IoBagOutline, IoSearchOutline } from 'react-icons/io5';
@@ -9,6 +10,7 @@ interface HeaderActionProps {
 }
 
 export default function HeaderAction({ search, setSearch }: HeaderActionProps) {
+  const {onOpen} = useModalDrawer(state=>state);
   return (
     <div className="flex flex-row gap-1 sm:gap-4 items-center">
       {!search && (
@@ -23,9 +25,9 @@ export default function HeaderAction({ search, setSearch }: HeaderActionProps) {
       <Link href="/">
         <FaRegStar className=" size-4 sm:size-5 cursor-pointer" />
       </Link>
-      <Link href="/">
+      <div onClick={onOpen}>
         <IoBagOutline color="black" className=" size-4 sm:size-5 cursor-pointer" />
-      </Link>
+        </div>
     </div>
   );
 }
