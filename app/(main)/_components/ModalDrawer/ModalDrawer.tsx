@@ -58,7 +58,8 @@ export default function ModalDrawer() {
     const distance = currentX - startX.current;
 
     if (distance > 0) {
-      document.body.classList.add('noScroll');
+      document.documentElement.style.overflow='hidden';
+      document.body.style.overflow='hidden';
       setTranslateX(distance);
     }
     if(distance>20){
@@ -90,7 +91,8 @@ export default function ModalDrawer() {
     } else {
       setTranslateX(0);
     }
-    document.body.classList.remove('noScroll');
+    document.documentElement.style.overflow='';
+    document.body.style.overflow='';
     setCheckHidden(false);
   }, [shouldClose, debounceClose]);
 
