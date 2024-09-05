@@ -58,8 +58,6 @@ export default function ModalDrawer() {
     const distance = currentX - startX.current;
 
     if (distance > 0) {
-      document.documentElement.style.overflow='hidden';
-      document.body.style.overflow='hidden';
       setTranslateX(distance);
     }
     if(distance>20){
@@ -91,14 +89,17 @@ export default function ModalDrawer() {
     } else {
       setTranslateX(0);
     }
-    document.documentElement.style.overflow='';
-    document.body.style.overflow='';
     setCheckHidden(false);
   }, [shouldClose, debounceClose]);
 
   useEffect(() => {
     if (!isOpen) {
+      document.documentElement.style.overflow='';
+      document.body.style.overflow='';
       setTranslateX(0);
+    }else{
+      document.documentElement.style.overflow='hidden';
+      document.body.style.overflow='hidden';
     }
   }, [isOpen]);
 
