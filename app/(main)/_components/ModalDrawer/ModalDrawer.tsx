@@ -59,11 +59,7 @@ export default function ModalDrawer() {
     const distance = currentX - startX.current;
 
     const currentY = e.touches[0].clientY; 
-    const distanceY = Math.abs(currentY - startY.current);
-    console.log(distanceY);
-    
-   
-    
+    const distanceY = distance>10?0:Math.abs(currentY - startY.current);
     
     if(distanceY<15){
       if (distance > 10) {
@@ -72,7 +68,7 @@ export default function ModalDrawer() {
       if(distance>20){
         setCheckHidden(true);
       }
-      if (distance > 100) {
+      if (distance > 70) {
         setShouldClose(true);
       } else {
         setShouldClose(false);
