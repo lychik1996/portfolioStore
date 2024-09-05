@@ -10,10 +10,10 @@ export default function Banner() {
           style={{ background: 'rgb(224, 224, 224)' }}
         >
           <Image
-            className=""
+            priority={true}
             src="/home/banner/man1.png"
             width={180}
-            height={20}
+            height={262}
             alt=""
           />
         </div>
@@ -46,7 +46,7 @@ export default function Banner() {
               height={20}
               alt=""
             />
-            <Image src="/home/banner/new.png" width={150} height={20} alt="" />
+            <Image src="/home/banner/new.png" width={150} height={12} alt="" />
             <Link
               href="/shop"
               className="button uppercase text-center lg:px-9 px-5 "
@@ -78,14 +78,15 @@ export default function Banner() {
       </div>
       <div className="flex items-center flex-wrap justify-center gap-5 2xl:justify-between  py-5 lg:py-10">
         {brands.map((brand, i) => (
-          <Image
-            key={i}
+            <Image key={i}
             src={`/home/banner/${brand}.png`}
-            className="xl:w-40 w-28 md:w-36"
-            width={150}
-            height={20}
+            className='w-[auto] h-[auto]'
+            width={162}
+            height={26}
             alt=""
           />
+          
+          
         ))}
       </div>
     </div>
