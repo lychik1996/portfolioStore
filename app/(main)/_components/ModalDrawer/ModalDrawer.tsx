@@ -50,7 +50,7 @@ export default function ModalDrawer() {
     setTranslateX(0);
     setShouldClose(false);
     document.body.classList.add('noScroll');
-    
+    document.querySelector('.scroll')?.classList.add('noScroll');
   }, []);
 
   const handleTouchMove = useCallback((e: TouchEvent) => {
@@ -83,6 +83,7 @@ export default function ModalDrawer() {
       setTranslateX(0);
     }
     document.body.classList.remove('noScroll');
+    document.querySelector('.scroll')?.classList.remove('noScroll');
   }, [shouldClose,debounceClose]);
   
   useEffect(() => {
@@ -153,7 +154,7 @@ export default function ModalDrawer() {
                 <span className="font-bold text-black">Free Shipping</span>
               </p>
             </div>
-            <div className="flex-1 border-b-[1px] border-slate-700 overflow-y-scroll scrollbar-hide mt-3">
+            <div className="flex-1 border-b-[1px] border-slate-700 overflow-y-scroll scrollbar-hide mt-3 scroll">
               <div className="flex flex-col gap-2">
                 {items.map((item, i) => (
                   <Item
