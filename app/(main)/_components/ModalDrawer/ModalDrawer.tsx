@@ -44,13 +44,14 @@ export default function ModalDrawer() {
   const [translateX, setTranslateX] = useState<number>(0);
   const [shouldClose, setShouldClose] = useState<boolean>(false);
   const modalRef = useRef<HTMLDivElement>(null);
+  const [checkHidden, setCheckHidden] = useState(false);
   
   const handleTouchStart = useCallback((e: TouchEvent) => {
     startX.current = e.touches[0].clientX;
     setTranslateX(0);
     setShouldClose(false);
     document.body.classList.add('noScroll');
-    document.querySelector('.scroll')?.classList.add('noScroll');
+    setCheckHidden(true);
   }, []);
 
   const handleTouchMove = useCallback((e: TouchEvent) => {
@@ -83,7 +84,7 @@ export default function ModalDrawer() {
       setTranslateX(0);
     }
     document.body.classList.remove('noScroll');
-    document.querySelector('.scroll')?.classList.remove('noScroll');
+    setCheckHidden(false);
   }, [shouldClose,debounceClose]);
   
   useEffect(() => {
@@ -135,10 +136,9 @@ export default function ModalDrawer() {
         <div onClick={()=>debounceClose()} className="flex-1"></div>
         <div
         ref={modalRef}
-          className={clsx(
-            'bg-white flex flex-row p-6 md:p-10 w-full sm:w-[70%] md:w-[65%] lg:w-[60%] xl:w-[50%] 2xl:w-[40%] transition-transform duration-500 ease-in-out fixed right-0 top-0 h-full',
+          className=
+            'bg-white flex flex-row p-6 md:p-10 w-full sm:w-[70%] md:w-[65%] lg:w-[60%] xl:w-[50%] 2xl:w-[40%] fixed right-0 top-0 h-full'
             
-          )}
           style={{
             transform: isOpen ? `translateX(${translateX}px)` : `translateX(100%)`,
             transition: translateX > 0 ? 'none' : 'transform 0.5s ease-in-out',
@@ -154,7 +154,12 @@ export default function ModalDrawer() {
                 <span className="font-bold text-black">Free Shipping</span>
               </p>
             </div>
-            <div className="flex-1 border-b-[1px] border-slate-700 overflow-y-scroll scrollbar-hide mt-3 scroll">
+            <div className={clsx(
+              "flex-1 border-b-[1px] border-slate-700  scrollbar-hide mt-3",
+              checkHidden?'overflow-hidden':'overflow-y-scroll'
+            )}
+            
+            >
               <div className="flex flex-col gap-2">
                 {items.map((item, i) => (
                   <Item
