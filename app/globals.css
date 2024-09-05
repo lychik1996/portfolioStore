@@ -54,6 +54,17 @@ img {
 .input_auth::placeholder{
   color: rgb(157, 157, 157);
 }
+.modalContent{
+  transition: transform 0.5s ease-in-out;
+  transform: translateX(100%);
+}
+.modalContentOpen {
+  transform: translateX(0);
+}
+
+.modalContentClosed {
+  transform: translateX(100%);
+}
 @media(min-width:1024px){
   .input_auth{
     height: 47px;
