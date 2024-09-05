@@ -58,10 +58,15 @@ export default function ModalDrawer() {
     const currentX = e.touches[0].clientX;
     const distance = currentX - startX.current;
 
-    const currentY = e.touches[0].clientY;
+    const currentY = e.touches[0].clientY; 
     const distanceY = Math.abs(currentY - startY.current);
+    console.log(distanceY);
+    
+   
+    
+    
     if(distanceY<15){
-      if (distance > 0) {
+      if (distance > 10) {
         setTranslateX(distance);
       }
       if(distance>20){
