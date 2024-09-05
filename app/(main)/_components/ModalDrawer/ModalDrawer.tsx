@@ -49,6 +49,7 @@ export default function ModalDrawer() {
     startX.current = e.touches[0].clientX;
     setTranslateX(0);
     setShouldClose(false);
+    document.body.style.overflow='hidden';
   }, []);
 
   const handleTouchMove = useCallback((e: TouchEvent) => {
@@ -67,11 +68,11 @@ export default function ModalDrawer() {
 
   const debounceClose = useCallback((time?:number)=>{
     if(modalRef.current){
-      modalRef.current.style.transition =  `transform ${time?time:'0.5'}s ease-in-out `;
+      modalRef.current.style.transition = `transform ${time?time:'0.5'}s ease-in-out `;
       modalRef.current.style.transform = 'translateX(100%)';
       
       }
-      setTimeout(onClose,500);
+      setTimeout(onClose,Number(`${time?time*1000:500}`));
   },[onClose]);
 
   const handleTouchEnd = useCallback(() => {
@@ -80,6 +81,7 @@ export default function ModalDrawer() {
     } else {
       setTranslateX(0);
     }
+    document.body.style.overflow='';
   }, [shouldClose,debounceClose]);
   
   useEffect(() => {
@@ -128,7 +130,7 @@ export default function ModalDrawer() {
           isOpen ? 'block opacity-100' : 'opacity-0 pointer-events-none'
         )}
       >
-        <div onClick={debounceClose} className="flex-1"></div>
+        <div onClick={()=>debounceClose()} className="flex-1"></div>
         <div
         ref={modalRef}
           className={clsx(
@@ -189,7 +191,7 @@ export default function ModalDrawer() {
           </div>
           <IoMdClose
             className="size-6 sm:size-7 cursor-pointer"
-            onClick={debounceClose}
+            onClick={()=>debounceClose()}
           />
         </div>
       </div>
