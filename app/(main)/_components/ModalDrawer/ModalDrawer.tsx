@@ -59,7 +59,7 @@ export default function ModalDrawer() {
     if (distance > 0) {
       setTranslateX(distance);
     }
-    if (distance > 150) {
+    if (distance > 100) {
       setShouldClose(true);
     } else {
       setShouldClose(false);
