@@ -50,6 +50,7 @@ export default function ModalDrawer() {
     setTranslateX(0);
     setShouldClose(false);
     document.body.style.overflow='hidden';
+    document.documentElement.style.overflow = 'hidden'; 
   }, []);
 
   const handleTouchMove = useCallback((e: TouchEvent) => {
@@ -82,6 +83,7 @@ export default function ModalDrawer() {
       setTranslateX(0);
     }
     document.body.style.overflow='';
+    document.documentElement.style.overflow = ''; 
   }, [shouldClose,debounceClose]);
   
   useEffect(() => {
