@@ -41,6 +41,7 @@ export default function ModalDrawer() {
   const [items, setItems] = useState(arr);
   const [subtotal, setSubtotal] = useState(0);
   const startX = useRef<number>(0);
+  const startY = useRef<number>(0);
   const [translateX, setTranslateX] = useState<number>(0);
   const [shouldClose, setShouldClose] = useState<boolean>(false);
   const modalRef = useRef<HTMLDivElement>(null);
@@ -48,26 +49,31 @@ export default function ModalDrawer() {
 
   const handleTouchStart = useCallback((e: TouchEvent) => {
     startX.current = e.touches[0].clientX;
+    startY.current = e.touches[0].clientY;
     setTranslateX(0);
     setShouldClose(false);
-    
   }, []);
 
   const handleTouchMove = useCallback((e: TouchEvent) => {
     const currentX = e.touches[0].clientX;
     const distance = currentX - startX.current;
 
-    if (distance > 0) {
-      setTranslateX(distance);
+    const currentY = e.touches[0].clientY;
+    const distanceY = Math.abs(currentY - startY.current);
+    if(distanceY<15){
+      if (distance > 0) {
+        setTranslateX(distance);
+      }
+      if(distance>20){
+        setCheckHidden(true);
+      }
+      if (distance > 100) {
+        setShouldClose(true);
+      } else {
+        setShouldClose(false);
+      }
     }
-    if(distance>20){
-      setCheckHidden(true);
-    }
-    if (distance > 100) {
-      setShouldClose(true);
-    } else {
-      setShouldClose(false);
-    }
+    
   }, []);
 
   const debounceClose = useCallback(
