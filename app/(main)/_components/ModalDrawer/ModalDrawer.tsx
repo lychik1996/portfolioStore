@@ -45,13 +45,12 @@ export default function ModalDrawer() {
   const [shouldClose, setShouldClose] = useState<boolean>(false);
   const modalRef = useRef<HTMLDivElement>(null);
   const [checkHidden, setCheckHidden] = useState(false);
-  
+
   const handleTouchStart = useCallback((e: TouchEvent) => {
     startX.current = e.touches[0].clientX;
     setTranslateX(0);
     setShouldClose(false);
     document.body.classList.add('noScroll');
-    setCheckHidden(true);
   }, []);
 
   const handleTouchMove = useCallback((e: TouchEvent) => {
@@ -61,6 +60,9 @@ export default function ModalDrawer() {
     if (distance > 0) {
       setTranslateX(distance);
     }
+    if(distance>20){
+      setCheckHidden(true);
+    }
     if (distance > 100) {
       setShouldClose(true);
     } else {
@@ -68,14 +70,18 @@ export default function ModalDrawer() {
     }
   }, []);
 
-  const debounceClose = useCallback((time?:number)=>{
-    if(modalRef.current){
-      modalRef.current.style.transition = `transform ${time?time:'0.5'}s ease-in-out `;
-      modalRef.current.style.transform = 'translateX(100%)';
-      
+  const debounceClose = useCallback(
+    (time?: number) => {
+      if (modalRef.current) {
+        modalRef.current.style.transition = `transform ${
+          time ? time : '0.5'
+        }s ease-in-out `;
+        modalRef.current.style.transform = 'translateX(100%)';
       }
-      setTimeout(onClose,Number(`${time?time*1000:500}`));
-  },[onClose]);
+      setTimeout(onClose, Number(`${time ? time * 1000 : 500}`));
+    },
+    [onClose]
+  );
 
   const handleTouchEnd = useCallback(() => {
     if (shouldClose) {
@@ -85,14 +91,13 @@ export default function ModalDrawer() {
     }
     document.body.classList.remove('noScroll');
     setCheckHidden(false);
-  }, [shouldClose,debounceClose]);
-  
+  }, [shouldClose, debounceClose]);
+
   useEffect(() => {
     if (!isOpen) {
       setTranslateX(0);
     }
   }, [isOpen]);
-  
 
   useEffect(() => {
     if (isOpen) {
@@ -107,7 +112,6 @@ export default function ModalDrawer() {
       };
     }
   }, [isOpen, handleTouchEnd, handleTouchMove, handleTouchStart]);
-
 
   ///del
   useEffect(() => {
@@ -133,17 +137,16 @@ export default function ModalDrawer() {
           isOpen ? 'block opacity-100' : 'opacity-0 pointer-events-none'
         )}
       >
-        <div onClick={()=>debounceClose()} className="flex-1"></div>
+        <div onClick={() => debounceClose()} className="flex-1"></div>
         <div
-        ref={modalRef}
-          className=
-            'bg-white flex flex-row p-6 md:p-10 w-full sm:w-[70%] md:w-[65%] lg:w-[60%] xl:w-[50%] 2xl:w-[40%] fixed right-0 top-0 h-full'
-            
+          ref={modalRef}
+          className="bg-white flex flex-row p-6 md:p-10 w-full sm:w-[70%] md:w-[65%] lg:w-[60%] xl:w-[50%] 2xl:w-[40%] fixed right-0 top-0 h-full"
           style={{
-            transform: isOpen ? `translateX(${translateX}px)` : `translateX(100%)`,
+            transform: isOpen
+              ? `translateX(${translateX}px)`
+              : `translateX(100%)`,
             transition: translateX > 0 ? 'none' : 'transform 0.5s ease-in-out',
           }}
-         
         >
           <div className="w-[95%] flex flex-col">
             <div>
@@ -154,11 +157,11 @@ export default function ModalDrawer() {
                 <span className="font-bold text-black">Free Shipping</span>
               </p>
             </div>
-            <div className={clsx(
-              "flex-1 border-b-[1px] border-slate-700  scrollbar-hide mt-3",
-              checkHidden?'overflow-hidden':'overflow-y-scroll'
-            )}
-            
+            <div
+              className={clsx(
+                'flex-1 border-b-[1px] border-slate-700  scrollbar-hide mt-3',
+                checkHidden ? 'overflow-hidden' : 'overflow-y-scroll'
+              )}
             >
               <div className="flex flex-col gap-2">
                 {items.map((item, i) => (
@@ -198,7 +201,7 @@ export default function ModalDrawer() {
           </div>
           <IoMdClose
             className="size-6 sm:size-7 cursor-pointer"
-            onClick={()=>debounceClose()}
+            onClick={() => debounceClose()}
           />
         </div>
       </div>
