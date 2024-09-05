@@ -65,9 +65,9 @@ export default function ModalDrawer() {
     }
   }, []);
 
-  const debounceClose = useCallback(()=>{
+  const debounceClose = useCallback((time?:number)=>{
     if(modalRef.current){
-      modalRef.current.style.transition = 'transform 0.5s ease-in-out';
+      modalRef.current.style.transition =  `transform ${time?time:'0.5'}s ease-in-out `;
       modalRef.current.style.transform = 'translateX(100%)';
       
       }
@@ -76,14 +76,11 @@ export default function ModalDrawer() {
 
   const handleTouchEnd = useCallback(() => {
     if (shouldClose) {
-      
-      debounceClose();
-      
+      debounceClose(0.2);
     } else {
       setTranslateX(0);
     }
   }, [shouldClose,debounceClose]);
-  
   
   useEffect(() => {
     if (!isOpen) {
