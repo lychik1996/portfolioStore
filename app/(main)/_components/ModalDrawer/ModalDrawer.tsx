@@ -49,8 +49,8 @@ export default function ModalDrawer() {
     startX.current = e.touches[0].clientX;
     setTranslateX(0);
     setShouldClose(false);
-    document.body.style.overflow='hidden';
-    document.documentElement.style.overflow = 'hidden'; 
+    document.body.classList.add('noScroll');
+    
   }, []);
 
   const handleTouchMove = useCallback((e: TouchEvent) => {
@@ -82,8 +82,7 @@ export default function ModalDrawer() {
     } else {
       setTranslateX(0);
     }
-    document.body.style.overflow='';
-    document.documentElement.style.overflow = ''; 
+    document.body.classList.remove('noScroll');
   }, [shouldClose,debounceClose]);
   
   useEffect(() => {
