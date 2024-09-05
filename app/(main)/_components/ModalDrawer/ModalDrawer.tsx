@@ -50,7 +50,7 @@ export default function ModalDrawer() {
     startX.current = e.touches[0].clientX;
     setTranslateX(0);
     setShouldClose(false);
-    document.body.classList.add('noScroll');
+    
   }, []);
 
   const handleTouchMove = useCallback((e: TouchEvent) => {
@@ -58,6 +58,7 @@ export default function ModalDrawer() {
     const distance = currentX - startX.current;
 
     if (distance > 0) {
+      document.body.classList.add('noScroll');
       setTranslateX(distance);
     }
     if(distance>20){
