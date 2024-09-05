@@ -28,7 +28,7 @@ let optionsPages = [
   },
   {
     name: 'Drawer',
-    path: '/',
+    path: '/drawer',
   },
   {
     name: 'Favorites',

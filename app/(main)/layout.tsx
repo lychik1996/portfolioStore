@@ -1,6 +1,6 @@
 import Footer from "./_components/footer/Footer";
 import Header from "./_components/Header/Header";
-import ModalDrawer from "./_components/ModalDrawer/ModalDrawer";
+import ModalDrawer from "./_components/Drawer/ModalDrawer";
 
 export default function layout({children}:{children:React.ReactNode}){
     return(

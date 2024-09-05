@@ -46,7 +46,7 @@ export default function Packages() {
           <button className="button  max-w-32 px-6">Buy Now</button>
         </div>
       </div>
-      <div className='w-full flex justify-center items-center' style={{ boxShadow: '0px 20px 52.29px 0px rgba(68, 68, 68, 0.04);' }}>
+      <div className='w-full flex justify-center items-center' style={{ boxShadow: '0px 20px 52px 0px rgba(68, 68, 68, 0.04)' }}>
         <div
           className="flex flex-row flex-wrap w-5/6 xl:w-7/12 justify-center 2xl:justify-between gap-y-3 gap-x-7 py-10"
           

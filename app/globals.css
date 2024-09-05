@@ -40,7 +40,9 @@ img {
 }
 .scrollbar-hide::-webkit-scrollbar {
   opacity: 0;
+  width: 0px;
 }
+
 .input_auth{
   height: 30px;
   width: 100%;

@@ -11,10 +11,13 @@ export default function HeaderOption({
   setSelect,
 }: OptionProps) {
     const onScroll = ()=>{
-      const element = document.querySelector(path);
+      if(path.startsWith('#')){
+        const element = document.querySelector(path);
       if(element){
         element.scrollIntoView({behavior:'smooth'})
       }
+      }
+      
     }
   return (
     <Link

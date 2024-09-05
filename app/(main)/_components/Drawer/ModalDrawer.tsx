@@ -6,6 +6,7 @@ import { IoMdClose } from 'react-icons/io';
 import Item from './Item';
 import Link from 'next/link';
 import clsx from 'clsx';
+import Subtotal from './Subtotal';
 const arr = [
   {
     src: '1',
@@ -74,7 +75,6 @@ export default function ModalDrawer() {
         setShouldClose(false);
       }
     }
-    
   }, []);
 
   const debounceClose = useCallback(
@@ -180,31 +180,16 @@ export default function ModalDrawer() {
                     key={i}
                     item={item}
                     onCountChange={(newCount) => updateItemCount(i, newCount)}
+                    styleDiv="flex flex-col justify-start gap-1 pt-2 md:pt-4 md:gap-3"
+                    styleBlock='bg-slate-100'
                   />
                 ))}
               </div>
             </div>
-            <label className="cursor-pointer flex flex-row gap-2 items-center border-b-[1px] py-4 border-slate-700">
-              <input type="checkbox" className="cursor-pointer size-5" />
-              <p className="text-base lg:text-lg text-slate-500">
-                For <span className="font-bold text-black">$10.00</span> please
-                wrap the product
-              </p>
-            </label>
-            <div className="flex flex-row items-center justify-between text-base lg:text-lg font-bold py-5">
-              <h3>Subtotal</h3>
-              <h3>
-                ${' '}
-                {subtotal % 1 === 0
-                  ? `${subtotal}.00`
-                  : `${subtotal.toFixed(2)}`}
-              </h3>
-            </div>
-            <Link href={'/'} className="button text-center py-1">
-              Checkut
-            </Link>
+            <Subtotal subtotal={subtotal}/>
             <Link
-              href={'/'}
+              href={'/drawer'}
+              onClick={()=>debounceClose()}
               className="text-center underline font-bold text-base md:text-xl pt-4"
             >
               View Cart
