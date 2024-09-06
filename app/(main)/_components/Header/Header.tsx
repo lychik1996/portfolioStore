@@ -139,7 +139,7 @@ export default function Header() {
               Shop
             </Link>
             <Link
-              href="/"
+              href="/products/123"
               className={clsx(
                 'text-sm md:text-base',
                 pathName.startsWith('/products') &&

@@ -44,7 +44,7 @@ export default function ScrollTop() {
           <div
             onClick={onScroll}
             className={clsx(
-              'cursor-pointer transition-opacity duration-500 ease-in-out fixed z-30 bottom-10 right-5 md:right-10 xl:bottom-14 xl:right-32 border-2 bg-white/50 border-black rounded-full py-3 px-4',
+              'cursor-pointer transition-opacity duration-500 ease-in-out fixed z-30 bottom-10 right-5 md:right-10 xl:bottom-14 xl:right-32 border-2 bg-white/50 border-black rounded-full py-3 px-4 scale-75 md:scale-100',
               isVisible ? 'opacity-100' : 'opacity-0'
             )}
           >

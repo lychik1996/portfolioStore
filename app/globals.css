@@ -17,7 +17,7 @@ body{
   box-sizing: border-box;
   user-select: none;
 }
-h1,h2,h3,h4,h5,h6{
+h1,h2,h3,h4,h5,h6,.volkhov{
   font-family: 'Volkhov', serif;
 }
 .orbitron{
@@ -37,6 +37,7 @@ img {
   box-shadow: 0px 20px 35px 0px rgba(0, 0, 0, 0.15);
   line-height: 32px;
   font-size: 14px;
+  
 }
 .scrollbar-hide::-webkit-scrollbar {
   opacity: 0;

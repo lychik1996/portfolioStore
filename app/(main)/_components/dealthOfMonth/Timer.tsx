@@ -1,7 +1,7 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import timerIntervalFunc from './timerFunction';
+import timerIntervalFunc from '../../../../components/timerFunction';
 
 let count = '2024-09-12T12:00:00';
 export default function Timer() {
