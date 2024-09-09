@@ -5,23 +5,25 @@ interface ColorButtonProps {
   color: number | null;
   setColor: (index: number) => void;
   cl: string;
-  size: string;
+  width: string;
+  height:string;
 }
 export default function ColorButton({
   cl,
   color,
   index,
   setColor,
-  size,
+  width,
+  height,
 }: ColorButtonProps) {
   return (
     <div
       onClick={() => setColor(index)}
       className={clsx(
-        'rounded-full flex items-center justify-center cursor-pointer aspect-square ',
+        'rounded-full flex items-center justify-center cursor-pointer aspect-square',
         index === color && 'border-2 border-black',
       )}
-      style={{width:size}}
+      style={{width:width,height:height}}
     >
       <div
         className={clsx(

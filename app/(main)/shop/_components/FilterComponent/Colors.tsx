@@ -30,7 +30,8 @@ export default function Colors() {
             color={color}
             index={i}
             setColor={setColor}
-            size="32px"
+            width="32px"
+            height='32px'
           />
         ))}
       </div>
