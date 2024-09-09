@@ -3,7 +3,7 @@ import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { useEffect, useRef, useState } from 'react';
 import clsx from 'clsx';
-import { FaChevronDown, FaChevronUp } from 'react-icons/fa';
+import { FaChevronDown} from 'react-icons/fa';
 import HeaderAction from './HeaderAction';
 import Portal from '@/components/Portal';
 import HeaderOption from './HeaderOption';
@@ -65,18 +65,18 @@ export default function Header() {
       setSearch(false);
     }
   };
-  
+
   useEffect(() => {
     document.addEventListener('mousedown', handleClickOutSide);
     return () => {
       document.removeEventListener('mousedown', handleClickOutSide);
     };
   }, []);
-  
+
   return (
     <header className="my-5 sm:my-10 flex flex-row justify-between  w-5/6 xl:w-7/12 py-1 items-center">
-      <Link href={'/'} className='cursor-pointer'>
-      <h1 className=" text-2xl md:text-4xl uppercase">Fasco</h1>
+      <Link href={'/'} className="cursor-pointer">
+        <h1 className=" text-2xl md:text-4xl uppercase">Fasco</h1>
       </Link>
       <div
         className="flex flex-row justify-between gap-6 lg:gap-11"
@@ -94,17 +94,13 @@ export default function Header() {
                   )}
                 >
                   Home
-                  {selectHome ? (
-                    <FaChevronUp
-                      className="inline-block ml-1 lg:ml-2"
-                      size="12px"
-                    />
-                  ) : (
-                    <FaChevronDown
-                      className="inline-block ml-1 lg:ml-2"
-                      size="12px"
-                    />
-                  )}
+                  <FaChevronDown
+                    className={clsx(
+                      'inline-block ml-1 lg:ml-2 cursor-pointer transition-all duration-300 ease-in-out',
+                      selectHome && 'rotate-180'
+                    )}
+                    size="12px"
+                  />
                 </p>
 
                 <Portal isOpen={selectHome} reference={dropSelectHomeRef}>
@@ -150,23 +146,22 @@ export default function Header() {
             >
               Products
             </Link>
-            <div className="relative cursor-pointer hidden sm:block" ref={dropSelectPagesRef}>
+            <div
+              className="relative cursor-pointer hidden sm:block"
+              ref={dropSelectPagesRef}
+            >
               <p
                 onClick={() => setSelectPages(!selectPages)}
-                className='text-sm md:text-base'
+                className="text-sm md:text-base"
               >
                 Pages
-                {selectPages ? (
-                  <FaChevronUp
-                    className="inline-block ml-1 lg:ml-2"
-                    size="12px"
-                  />
-                ) : (
-                  <FaChevronDown
-                    className="inline-block  ml-1 lg:ml-2"
-                    size="12px"
-                  />
-                )}
+                <FaChevronDown
+                  className={clsx(
+                    'inline-block ml-1 lg:ml-2 cursor-pointer transition-all duration-300 ease-in-out',
+                    selectPages && 'rotate-180'
+                  )}
+                  size="12px"
+                />
               </p>
               <Portal isOpen={selectPages} reference={dropSelectPagesRef}>
                 <div className="absolute z-10 mt-2 lg:mt-3 py-1 lg:py-2 left-1/2 transform -translate-x-1/2 bg-white flex flex-col gap-1 lg:gap-2 items-center border rounded-md shadow-md">

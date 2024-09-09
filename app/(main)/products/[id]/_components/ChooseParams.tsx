@@ -1,3 +1,4 @@
+import ColorButton from "@/components/ColorButton";
 import clsx from "clsx";
 import { useState } from "react";
 
@@ -34,19 +35,7 @@ export default function ChooseParams({ colors, sizes }: ChooseParamsProps) {
         <p className="volkhov" >Color: <span style={{color:colors[color]}}>{colors[color]}</span></p>
         <div className="flex flex-row gap-2">
           {colors.map((cl, i) => (
-            <div
-              key={i}
-              onClick={() => setColor(i)}
-              className={clsx(
-                "size-10 rounded-full flex items-center justify-center cursor-pointer",
-                i === color && "border-2 border-black"
-              )}
-            >
-              <div
-                className={clsx("size-full rounded-full", i === color && "scale-75")}
-                style={{ backgroundColor: cl }}
-              ></div>
-            </div>
+            <ColorButton key={i} cl={cl} color={color} index={i} setColor={setColor} size="10"/>
           ))}
         </div>
       </div>
