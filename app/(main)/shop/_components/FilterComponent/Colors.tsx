@@ -1,7 +1,5 @@
 import ColorButton from '@/components/ColorButton';
-import clsx from 'clsx';
 import { useState } from 'react';
-import { MdOutlineDisabledByDefault } from 'react-icons/md';
 import HeaderFilterComponent from './HeaderFilterComponent';
 const colors = [
   'rgb(255, 108, 108)',
@@ -32,7 +30,7 @@ export default function Colors() {
             color={color}
             index={i}
             setColor={setColor}
-            size="8"
+            size="32px"
           />
         ))}
       </div>

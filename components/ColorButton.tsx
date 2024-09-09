@@ -18,10 +18,10 @@ export default function ColorButton({
     <div
       onClick={() => setColor(index)}
       className={clsx(
-        ' rounded-full flex items-center justify-center cursor-pointer',
+        'rounded-full flex items-center justify-center cursor-pointer aspect-square ',
         index === color && 'border-2 border-black',
-        `size-${size}`
       )}
+      style={{width:size}}
     >
       <div
         className={clsx(
