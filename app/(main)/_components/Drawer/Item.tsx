@@ -51,7 +51,7 @@ export default function Item({
       </div>
       <div className={styleDiv}>
         <div className="flex flex-col w-36 md:w-44 justify-between md:gap-4">
-          <h3 className="text-xl lg:text-2xl max-w-36 md:max-w-44">{item.name}</h3>
+          <h3 className="text-xl lg:text-2xl max-w-36 md:max-w-44 truncate sm:whitespace-normal sm:overflow-visible">{item.name}</h3>
           <p className="text-sm lg:text-lg text-slate-500">
             Color: {item.color}
           </p>

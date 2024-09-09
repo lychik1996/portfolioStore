@@ -6,6 +6,8 @@ import Image from 'next/image';
 import { useState } from 'react';
 import Timer from './Timer';
 import Link from 'next/link';
+import SubInfo from './SubInfo';
+import ChooseParams from './ChooseParams';
 
 const item = {
   name: 'Denim Jacket',
@@ -143,137 +145,8 @@ export default function Item() {
             <div className="w-[29px] bg-red-700 h-[5px] rounded"></div>
           </div>
         </div>
-
-        <div className="flex flex-col gap-3">
-          <p className="volkhov">Size: {item.size[size]}</p>
-          <div className="flex flex-row  gap-2">
-            {item.size.map((it, i) => (
-              <div
-                key={i}
-                onClick={() => setSize(i)}
-                className={clsx(
-                  'size-11 flex items-center justify-center border-[1px] rounded-[5px] cursor-pointer',
-                  i === size && 'text-white bg-black border-black'
-                )}
-              >
-                {it}
-              </div>
-            ))}
-          </div>
-        </div>
-        <div className="flex flex-col gap-3">
-          <p className="volkhov">Color: {item.color[color]}</p>
-          <div className="flex flex-row  gap-2">
-            {item.color.map((cl, i) => (
-              <div
-                key={i}
-                onClick={() => setColor(i)}
-                className={clsx(
-                  'size-10 rounded-full flex items-center justify-center cursor-pointer',
-                  i === color && ' border-2 border-black'
-                )}
-              >
-                <div
-                  className={clsx(
-                    'size-full rounded-full',
-                    i === color && 'scale-75'
-                  )}
-                  style={{ backgroundColor: cl }}
-                ></div>
-              </div>
-            ))}
-          </div>
-        </div>
-        <p className="mb-2 volkhov">Quantity</p>
-        <div className="flex flex-row justify-between  gap-4">
-          <div className="flex flex-row items-center border-[1px] rounded border-slate-300">
-            <button
-              className="w-11 h-12"
-              onClick={() => {
-                if (quantity > 1) {
-                  setQuantity((prev) => prev - 1);
-                }
-              }}
-            >
-              -
-            </button>
-            <div className="w-10 h-11 flex items-center justify-center">
-              {quantity}
-            </div>
-            <button
-              onClick={() => setQuantity((prev) => prev + 1)}
-              className="w-11 h-12"
-            >
-              +
-            </button>
-          </div>
-          <button className="flex-1 border-[1px] rounded border-black">
-            Add to Card
-          </button>
-        </div>
-        <div className="flex flex-col gap-5">
-          <div className="flex flex-row flex-wrap justify-center gap-6 py-4 border-b-[1px]">
-            <Link href={'/'} className="flex flex-row items-center gap-2">
-              <Image
-                src={'/products/compare.svg'}
-                width={13.75}
-                height={17.5}
-                alt=""
-              />
-              Compare{' '}
-            </Link>
-            <Link href={'/'} className="flex flex-row items-center gap-2">
-              <Image
-                src={'/products/questions.svg'}
-                width={20}
-                height={20}
-                alt=""
-              />
-              Ask a questions
-            </Link>
-            <Link href={'/'} className="flex flex-row items-center gap-2">
-              <Image
-                src={'/products/share.svg'}
-                width={20}
-                height={20}
-                alt=""
-              />
-              Share
-            </Link>
-          </div>
-          <div className="flex flex-col gap-2">
-            <div className="flex flex-row items-center justify-between gap-2 ">
-              <div className='flex flex-row gap-2'>
-                <Image
-                  src={'/products/delivery.svg'}
-                  width={20}
-                  height={15}
-                  alt=""
-                />
-                <p className='volkhov font-bold'>Estimated Delivery:</p>
-              </div>{' '}
-              <p className=" pl-1 text-end volkhov"> Jul 30 - Aug 03</p>
-            </div>
-            <div className="flex flex-row items-center justify-between gap-2 ">
-              <div className='flex flex-row gap-2'>
-                <Image
-                  src={'/products/box.svg'}
-                  width={20}
-                  height={15}
-                  alt=""
-                />
-                <p className='volkhov font-bold'>Free Shipping & Returns: </p>
-              </div>
-              <p className="font-normal volkhov pl-1 text-end">
-                On all orders over $75
-              </p>
-            </div>
-          </div>
-          <div className='flex flex-col items-center justify-center w-full h-28 gap-3 bg-slate-50'>
-              <Image src={'/products/cards.png'} className='border-dashed border-[1px]' width={300} height={25} alt=''/>
-              <p className='volkhov'>Guarantee safe & secure checkout</p>
-          </div>
-        </div>
+        <ChooseParams colors={item.color} sizes={item.size}/>
+        <SubInfo/>
       </div>
     </div>
   );

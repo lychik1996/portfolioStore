@@ -75,9 +75,11 @@ export default function Header() {
   
   return (
     <header className="my-5 sm:my-10 flex flex-row justify-between  w-5/6 xl:w-7/12 py-1 items-center">
+      <Link href={'/'} className='cursor-pointer'>
       <h1 className=" text-2xl md:text-4xl uppercase">Fasco</h1>
+      </Link>
       <div
-        className="flex flex-row justify-between gap-2  md:gap-4 lg:gap-11"
+        className="flex flex-row justify-between gap-6 lg:gap-11"
         ref={searchRef}
       >
         {!search ? (
@@ -122,7 +124,7 @@ export default function Header() {
               <Link
                 href="/"
                 className={clsx(
-                  'text-sm md:text-base',
+                  'text-sm md:text-base w-14',
                   pathName === '/' && 'underline underline-offset-8'
                 )}
               >
@@ -141,7 +143,7 @@ export default function Header() {
             <Link
               href="/products/123"
               className={clsx(
-                'text-sm md:text-base',
+                'hidden sm:inline-block text-sm md:text-base',
                 pathName.startsWith('/products') &&
                   'underline underline-offset-8'
               )}
@@ -183,7 +185,7 @@ export default function Header() {
         ) : (
           <Portal isOpen={search} reference={searchRef}>
             <input
-              className="w-56 md:w-72 lg:w-96 pl-2 pb-[2px] outline-none border-b-2 rounded-none border-slate-300 focus:border-black"
+              className="w-44 md:w-72 lg:w-96 pl-2 pb-[2px] outline-none border-b-2 rounded-none border-slate-300 focus:border-black"
               type="text"
               placeholder="Search..."
             />
