@@ -21,7 +21,7 @@ export default function Colors() {
   const [color, setColor] = useState<number | null>(null);
   return (
     <div className="gap-3 flex flex-col">
-      <HeaderFilterComponent setDefault={setColor} name="Colors" />
+      <HeaderFilterComponent setDefault={setColor} name="Colors" exist={color} />
       <div className="flex flex-row flex-wrap gap-2 max-w-72">
         {colors.map((cl, i) => (
           <ColorButton

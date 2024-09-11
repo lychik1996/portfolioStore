@@ -7,6 +7,7 @@ interface HeaderFilterComponentProps {
   open?: boolean;
   setOpen?: (open: boolean) => void;
   action?: boolean;
+  exist: null | number,
 }
 export default function HeaderFilterComponent({
   setDefault,
@@ -14,7 +15,11 @@ export default function HeaderFilterComponent({
   open,
   setOpen,
   action,
+  exist
 }: HeaderFilterComponentProps) {
+  const isCollection = name ==="Collections";
+  const canShowIcon = isCollection ? exist !== null && exist > 0 : exist !== null;
+  
   return (
     <div className="flex flex-row justify-between items-center">
       <h4 className="text-base lg:text-xl">{name}</h4>
@@ -28,11 +33,13 @@ export default function HeaderFilterComponent({
             )}
           />
         )}
-
-        <MdOutlineDisabledByDefault
-          className="cursor-pointer text-slate-400 active:text-black"
-          onClick={() => setDefault(name == 'Collections' ? 0 : null)}
-        />
+        {canShowIcon && (
+          <MdOutlineDisabledByDefault
+            className="cursor-pointer text-slate-400 active:text-black"
+            onClick={() => setDefault(isCollection ? 0 : null)}
+          />
+        )}
+        
       </div>
     </div>
   );

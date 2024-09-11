@@ -128,10 +128,10 @@ export default function Header() {
               </Link>
             )}
             <Link
-              href="/shop"
+              href="/shop/page/1"
               className={clsx(
                 'text-sm md:text-base',
-                pathName === '/shop' && 'underline underline-offset-8'
+                pathName.startsWith('/shop') && 'underline underline-offset-8'
               )}
             >
               Shop

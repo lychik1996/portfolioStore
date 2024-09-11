@@ -20,8 +20,7 @@ export default function Tags() {
 
   return (
     <div className="flex flex-col gap-3">
-      <HeaderFilterComponent name="Tags" setDefault={setTag} />
-
+      <HeaderFilterComponent name="Tags" setDefault={setTag} exist={tag} />
       <div className="flex flex-row flex-wrap gap-2 max-w-72">
         {tags.map((tg, i) => (
           <p

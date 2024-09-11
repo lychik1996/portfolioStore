@@ -15,6 +15,7 @@ export default function Brands() {
         action
         setOpen={setOpen}
         open={open}
+        exist={brand}
       />
       <div
         className={clsx(

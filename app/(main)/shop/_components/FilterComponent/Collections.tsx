@@ -20,6 +20,7 @@ export default function Collections() {
         action
         setOpen={setOpen}
         open={open}
+        exist={collection}
       />
       <div
         className={clsx(

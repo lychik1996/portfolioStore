@@ -12,7 +12,7 @@ export default function Prices() {
   const [price, setPrice] = useState<number | null>(null);
   return (
     <div className="flex flex-col gap-3 ">
-      <HeaderFilterComponent setDefault={setPrice} name="Prices" />
+      <HeaderFilterComponent setDefault={setPrice} name="Prices" exist={price} />
       <div className="flex flex-col gap-2">
         {prices.map((pr, i) => (
           <div

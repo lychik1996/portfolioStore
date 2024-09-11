@@ -7,7 +7,7 @@ export default function Sizes() {
   const [size, setSize] = useState<null | number>(null);
   return (
     <div className="flex flex-col gap-3 ">
-      <HeaderFilterComponent setDefault={setSize} name="Size" />
+      <HeaderFilterComponent setDefault={setSize} name="Size" exist={size} />
       <div className="flex flex-row flex-wrap gap-3">
         {sizes.map((si, i) => (
           <div
