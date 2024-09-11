@@ -69,7 +69,7 @@ const items = [
   },
   {
     name: 'Dotted Black Dress',
-    src: '9.png',
+    src: '8.png',
     price: 20,
     newPrice: null,
     colors: ['rgb(6, 62, 102)', 'rgb(0, 0, 0)', 'rgb(177, 197, 212)'],
@@ -154,7 +154,7 @@ export default function Items({ page }: { page: number }) {
     const endIndex = startIndex + MAXITEM_PAGE;
     const currentItems = items.slice(startIndex, endIndex);
   return (
-    <div className="flex flex-row justify-center flex-wrap gap-2">
+    <div className="flex flex-row justify-center flex-wrap gap-1 sm:gap-2">
       {currentItems.map((item, i) => (
         <Item key={i} item={item} />
       ))}

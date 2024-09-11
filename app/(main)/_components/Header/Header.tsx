@@ -3,7 +3,7 @@ import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { useEffect, useRef, useState } from 'react';
 import clsx from 'clsx';
-import { FaChevronDown} from 'react-icons/fa';
+import { FaChevronDown } from 'react-icons/fa';
 import HeaderAction from './HeaderAction';
 import Portal from '@/components/Portal';
 import HeaderOption from './HeaderOption';
@@ -74,7 +74,7 @@ export default function Header() {
   }, []);
 
   return (
-    <header className="my-5 sm:my-10 flex flex-row justify-between  w-5/6 xl:w-7/12 py-1 items-center">
+    <header className="my-5 sm:my-10 flex flex-row justify-between  w-5/6 xl:w-7/12 py-1 items-center bg-white z-40">
       <Link href={'/'} className="cursor-pointer">
         <h1 className=" text-2xl md:text-4xl uppercase">Fasco</h1>
       </Link>

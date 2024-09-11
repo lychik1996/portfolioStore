@@ -148,7 +148,7 @@ export default function ModalDrawer() {
           isOpen ? 'block opacity-100' : 'opacity-0 pointer-events-none'
         )}
       >
-        <div onClick={() => debounceClose()} className="flex-1"></div>
+        <div onClick={() => debounceClose()} className="flex-1 cursor-pointer"></div>
         <div
           ref={modalRef}
           className="bg-white flex flex-row p-6 md:p-10 w-full sm:w-[70%] md:w-[65%] lg:w-[60%] xl:w-[50%] 2xl:w-[40%] fixed right-0 top-0 h-full"

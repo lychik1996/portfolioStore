@@ -19,7 +19,7 @@ export default function Subtotal({subtotal}:{subtotal:number}){
                   : `${subtotal.toFixed(2)}`}
               </h3>
             </div>
-            <Link href={'/'} className="button text-center py-1 w-full">
+            <Link href={'/checkout'} className="button text-center py-1 w-full">
               Checkout
             </Link>
         </>

@@ -10,7 +10,7 @@ const COUNT_PAGE =Math.ceil(COUNT_ITEM/MAX_ITEM_PAGE);
 const arr = Array.from({ length: COUNT_PAGE}, (_, i) => String(i + 1));
 export default function ChoosePages({ page }: { page: number }) {
     useEffect(() => {
-        const targetId = `target_page`;
+        const targetId =`target_page`;
         const element = document.getElementById(targetId);
         if (element) {
           element.scrollIntoView({ block: 'start' });

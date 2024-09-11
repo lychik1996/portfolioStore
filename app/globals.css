@@ -58,6 +58,20 @@ img {
 .input_auth::placeholder{
   color: rgb(157, 157, 157);
 }
+.input_info_user{
+  outline: none;
+  border: 1px solid rgb(138, 138, 138);
+  padding-left: 20px;
+  padding-top: 15px;
+  padding-bottom: 15px;
+  width: 100%;
+}
+.input_info_user::placeholder{
+  color: rgb(157, 157, 157);
+}
+.input_info_user:focus{
+  border-color: rgb(77, 76, 76);
+}
 .modalContent{
   transition: transform 0.5s ease-in-out;
   transform: translateX(100%);
