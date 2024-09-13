@@ -47,7 +47,7 @@ export default function ItemsChoose() {
         />
       </p>
       <Portal isOpen={isOpenPortal} reference={dropSelectRef}>
-        <div className="absolute z-10 mt-2 lg:mt-3 py-1 lg:py-2 left-1/2 transform -translate-x-1/2 bg-white flex flex-col gap-1 lg:gap-2 items-center border rounded-md shadow-md">
+        <div className="absolute z-20 mt-2 lg:mt-3 py-1 lg:py-2 left-1/2 transform -translate-x-1/2 bg-white flex flex-col gap-1 lg:gap-2 items-center border rounded-md shadow-md">
           {collections.map((collection, i) => (
             <ItemsOptions
               key={i}

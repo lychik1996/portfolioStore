@@ -89,7 +89,7 @@ export default function Header() {
                 <p
                   onClick={() => setSelectHome(!selectHome)}
                   className={clsx(
-                    'text-sm md:text-base',
+                    'text-sm md:text-base hover:scale-105 transition-all duration-300 ease-in-out',
                     pathName === '/' && 'underline underline-offset-8'
                   )}
                 >
@@ -120,7 +120,7 @@ export default function Header() {
               <Link
                 href="/"
                 className={clsx(
-                  'text-sm md:text-base w-14',
+                  'text-sm md:text-base w-14 hover:scale-105 transition-all duration-300 ease-in-out',
                   pathName === '/' && 'underline underline-offset-8'
                 )}
               >
@@ -130,7 +130,7 @@ export default function Header() {
             <Link
               href="/shop/page/1"
               className={clsx(
-                'text-sm md:text-base',
+                'text-sm md:text-base hover:scale-105 transition-all duration-300 ease-in-out',
                 pathName.startsWith('/shop') && 'underline underline-offset-8'
               )}
             >
@@ -139,7 +139,7 @@ export default function Header() {
             <Link
               href="/products/123"
               className={clsx(
-                'hidden sm:inline-block text-sm md:text-base',
+                'hidden sm:inline-block text-sm md:text-base hover:scale-105 transition-all duration-300 ease-in-out',
                 pathName.startsWith('/products') &&
                   'underline underline-offset-8'
               )}
@@ -152,7 +152,7 @@ export default function Header() {
             >
               <p
                 onClick={() => setSelectPages(!selectPages)}
-                className="text-sm md:text-base"
+                className="text-sm md:text-base hover:scale-105 transition-all duration-300 ease-in-out"
               >
                 Pages
                 <FaChevronDown

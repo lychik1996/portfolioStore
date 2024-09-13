@@ -18,7 +18,7 @@ interface ItemProps {
 export default function Item({ item }: ItemProps) {
   const [color, setColor] = useState(0);
   return (
-    <div className="flex flex-col gap-2">
+    <div className="flex flex-col gap-2 md:hover:scale-110 md:hover:z-10 md:hover:shadow-xl transition-all duration-300 ease-in-out p-1 bg-white cursor-pointer">
       <div className="relative flex items-center justify-center">
         <Image
           src={`/shop/${item.src}`}

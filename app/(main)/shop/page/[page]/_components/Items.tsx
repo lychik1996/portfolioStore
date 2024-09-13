@@ -154,7 +154,7 @@ export default function Items({ page }: { page: number }) {
     const endIndex = startIndex + MAXITEM_PAGE;
     const currentItems = items.slice(startIndex, endIndex);
   return (
-    <div className="flex flex-row justify-center flex-wrap gap-1 sm:gap-2">
+    <div className="flex flex-row justify-center flex-wrap ">
       {currentItems.map((item, i) => (
         <Item key={i} item={item} />
       ))}
