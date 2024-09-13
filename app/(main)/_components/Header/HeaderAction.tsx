@@ -22,7 +22,8 @@ export default function HeaderAction({ search, setSearch }: HeaderActionProps) {
       <Link href="/">
         <FaRegUser className=" size-3 sm:size-4 cursor-pointer" />
       </Link>
-      <Link href="/">
+      <Link href="/products/125">
+      {/* change link */}
         <FaRegStar className=" size-4 sm:size-5 cursor-pointer" />
       </Link>
       <div onClick={onOpen}>

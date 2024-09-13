@@ -186,7 +186,7 @@ export default function ModalDrawer() {
                 ))}
               </div>
             </div>
-            <Subtotal subtotal={subtotal}/>
+            <Subtotal subtotal={subtotal} debounceClose={debounceClose}/>
             <Link
               href={'/drawer'}
               onClick={()=>debounceClose()}

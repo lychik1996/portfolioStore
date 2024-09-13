@@ -4,7 +4,6 @@ import clsx from 'clsx';
 import { useEffect, useRef, useState } from 'react';
 import { FaChevronDown } from 'react-icons/fa';
 import ItemsOptions from './ItemsOptions';
-import useWindowWidth from '@/hooks/use-windowWidth';
 import { FiFilter } from "react-icons/fi";
 import { useModalFilter } from '@/store/use-modalFilter';
 const collections = [
@@ -14,7 +13,6 @@ const collections = [
   'Accessories',
 ];
 export default function ItemsChoose() {
-  const windowWidth = useWindowWidth();
   const {onOpen} = useModalFilter((state)=>state);
   const [isOpenPortal, setIsOpenPortal] = useState(false);
   const dropSelectRef = useRef<HTMLDivElement>(null);
@@ -37,8 +35,7 @@ export default function ItemsChoose() {
   }, []);
   return (
     <div className="relative cursor-pointer" ref={dropSelectRef}>
-      {windowWidth > 768?(
-        <>
+      <div className='hidden md:block'>
         <p onClick={() => setIsOpenPortal(!isOpenPortal)} className="text-sm md:text-base">
         {collections[select]}
         <FaChevronDown
@@ -62,10 +59,9 @@ export default function ItemsChoose() {
           ))}
         </div>
       </Portal>
-        </>
-      ):(
-        <div className='flex flex-row items-center' onClick={onOpen}><h4>Filter</h4><FiFilter/></div>
-      )}
+      </div>
+        <div className='flex md:hidden flex-row items-center' onClick={onOpen}><h4>Filter</h4><FiFilter/></div>
+      
     </div>
   );
 }

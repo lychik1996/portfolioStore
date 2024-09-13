@@ -8,7 +8,7 @@ export default function Delivery() {
           className="input_info_user"
           placeholder="Country / Region"
         />
-        <div className="flex flex-row gap-2">
+        <div className="flex flex-row sm:flex-col md:flex-row gap-2">
           <input
             type="text"
             className="input_info_user"
@@ -25,7 +25,7 @@ export default function Delivery() {
           className="input_info_user"
           placeholder="Adress"
         />
-        <div className="flex flex-row gap-2">
+        <div className="flex  flex-row sm:flex-col md:flex-row  gap-2">
           <input
             type="text"
             className="input_info_user"

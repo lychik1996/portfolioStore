@@ -74,7 +74,7 @@ export default function Drawer() {
         </div>
         <div className="w-full flex md:justify-end mt-2 md:mt-6">
             <div className='w-full md:w-[50%] flex flex-col gap-2'>
-            <Subtotal subtotal={subtotal}/>
+            <Subtotal subtotal={subtotal} />
         </div>
         </div>
       </div>

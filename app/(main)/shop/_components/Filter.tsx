@@ -16,7 +16,6 @@ export default function Filter() {
   const { isOpen, onClose } = useModalFilter((state) => state);
   const [resetKey, setResetKey] = useState(0);
   const windowWidth = useWindowWidth();
-  const checkOpen = windowWidth > 768 ? true : isOpen;
   useEffect(() => {
     if (windowWidth > 768) {
       onClose();
@@ -30,8 +29,8 @@ export default function Filter() {
   return (
     <div
       className={clsx(
-        ' flex w-full md:w-auto  md:static bg-white  flex-col gap-3 z-10',
-        !checkOpen && 'hidden'
+        ' md:flex w-full md:w-auto  md:static bg-white  flex-col gap-3 z-10',
+        isOpen?"flex":"hidden"
       )}
     >
       <div className="flex flex-row justify-between items-center">
@@ -43,12 +42,12 @@ export default function Filter() {
           >
             Reset
           </p>
-          {windowWidth <= 768 && (
+          
             <IoMdClose
-              className="size-6 sm:size-7 cursor-pointer"
+              className=" block md:hidden size-6 sm:size-7 cursor-pointer"
               onClick={onClose}
             />
-          )}
+          
         </div>
       </div>
       <div className="flex flex-col gap-3 scrollbar-hide">

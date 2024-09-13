@@ -1,6 +1,9 @@
 import Link from "next/link";
-
-export default function Subtotal({subtotal}:{subtotal:number}){
+interface SubtotalProps{
+  subtotal:number,
+  debounceClose?:Function,
+}
+export default function Subtotal({subtotal, debounceClose}:SubtotalProps){
     return(
         <>
         <label className="cursor-pointer flex flex-row gap-2 items-center border-b-[1px] py-4 border-slate-700">
@@ -19,7 +22,7 @@ export default function Subtotal({subtotal}:{subtotal:number}){
                   : `${subtotal.toFixed(2)}`}
               </h3>
             </div>
-            <Link href={'/checkout'} className="button text-center py-1 w-full">
+            <Link href={'/checkout'} onClick={()=> debounceClose && debounceClose()} className="button text-center py-1 w-full">
               Checkout
             </Link>
         </>
