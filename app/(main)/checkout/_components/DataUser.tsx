@@ -61,7 +61,7 @@ export default function DataUser() {
         <h4 className='text-xl'>Enter Data</h4>
         <FaRegAddressCard/>
             </div>
-      <div className="flex flex-col py-4 gap-4  max-h-[400px] overflow-y-scroll scrollbar-hide">
+      <div className="flex flex-col py-4 gap-4  max-h-[400px] overflow-y-scroll scrollbar-hide pr-2">
         {items.map((item, i) => (
           <Item key={i} item={item} />
         ))}

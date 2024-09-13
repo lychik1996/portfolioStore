@@ -21,12 +21,14 @@ export default function HeaderFilterComponent({
   const canShowIcon = isCollection ? exist !== null && exist > 0 : exist !== null;
   
   return (
-    <div className="flex flex-row justify-between items-center">
+    <div className={clsx(
+"flex flex-row justify-between items-center",
+setOpen && 'cursor-pointer'
+    )} onClick={() => setOpen && setOpen(!open)}>
       <h4 className="text-base lg:text-xl">{name}</h4>
       <div className="flex flex-row gap-3">
-        {action && setOpen && (
+        {action && (
           <FaChevronDown
-            onClick={() => setOpen(!open)}
             className={clsx(
               'cursor-pointer transition-all duration-300 ease-in-out',
               open && 'rotate-180'
@@ -36,10 +38,12 @@ export default function HeaderFilterComponent({
         {canShowIcon && (
           <MdOutlineDisabledByDefault
             className="cursor-pointer text-slate-400 active:text-black"
-            onClick={() => setDefault(isCollection ? 0 : null)}
+            onClick={(e) =>{
+              e.stopPropagation();
+              setDefault(isCollection ? 0 : null)
+            } }
           />
         )}
-        
       </div>
     </div>
   );

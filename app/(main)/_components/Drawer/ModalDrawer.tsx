@@ -170,7 +170,7 @@ export default function ModalDrawer() {
             </div>
             <div
               className={clsx(
-                'flex-1 border-b-[1px] border-slate-700  scrollbar-hide mt-3',
+                'flex-1 border-b-[1px] border-slate-700  scrollbar-hide mt-3 pr-2',
                 checkHidden ? 'overflow-hidden' : 'overflow-y-scroll'
               )}
             >

@@ -52,7 +52,7 @@ export default function Item() {
   return (
     <div className="flex flex-col md:flex-row md:justify-between gap-4 w-5/6 xl:w-7/12 pb-8">
       <div className=" max-h-[393px] flex flex-row gap-3">
-        <div className=" overflow-y-scroll scrollbar-hide">
+        <div className=" overflow-y-scroll scrollbar-hide pr-2">
           <div className="flex flex-col gap-3 cursor-pointer">
             {item.smallSrc.map((img, i) => (
               <div
