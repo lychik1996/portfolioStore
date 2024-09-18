@@ -1,8 +1,7 @@
 'use client';
 import { useModalDrawer } from '@/store/use-modalDrawer';
+import Image from 'next/image';
 import Link from 'next/link';
-import { FaRegUser, FaRegStar } from 'react-icons/fa';
-import { IoBagOutline, IoSearchOutline } from 'react-icons/io5';
 
 interface HeaderActionProps {
   search: boolean;
@@ -12,22 +11,21 @@ interface HeaderActionProps {
 export default function HeaderAction({ search, setSearch }: HeaderActionProps) {
   const {onOpen} = useModalDrawer(state=>state);
   return (
-    <div className="flex flex-row gap-1 sm:gap-4 items-center">
+    <div className="flex flex-row gap-1 sm:gap-4 items-center h-5">
       {!search && (
-        <IoSearchOutline
-          className="size-4 sm:size-5 cursor-pointer"
-          onClick={() => setSearch(true)}
-        />
+        <Image src="/home/header/search.svg" alt='' width='18' height="18" onClick={() => setSearch(true)} className='cursor-pointer'/>
+        
       )}
       <Link href="/">
-        <FaRegUser className=" size-3 sm:size-4 cursor-pointer" />
+      <Image src="/home/header/user.svg" alt='' width='18' height="18" className='cursor-pointer'/>
+        
       </Link>
       <Link href="/products/125">
       {/* change link */}
-        <FaRegStar className=" size-4 sm:size-5 cursor-pointer" />
+      <Image src="/home/header/favorite.svg" alt='' width='18' height="18" className='cursor-pointer'/>
       </Link>
       <div onClick={onOpen}>
-        <IoBagOutline color="black" className=" size-4 sm:size-5 cursor-pointer" />
+      <Image src="/home/header/drawer.svg" alt='' width='18' height="18" className='cursor-pointer'/>
         </div>
     </div>
   );

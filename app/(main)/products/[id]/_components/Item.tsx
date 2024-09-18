@@ -5,7 +5,6 @@ import clsx from 'clsx';
 import Image from 'next/image';
 import { useState } from 'react';
 import Timer from './Timer';
-import Link from 'next/link';
 import SubInfo from './SubInfo';
 import ChooseParams from './ChooseParams';
 
@@ -16,7 +15,7 @@ const item = {
   oldPrice: 59,
   newPrice: 39,
   peopleViewing: 24,
-  saleTime: '2024-09-12T12:00:00',
+  saleTime: '2024-11-12T12:00:00',
   smallSrc: [
     'small1.jpg',
     'small2.jpg',
@@ -45,10 +44,9 @@ const item = {
 
 export default function Item() {
   const [src, setSrc] = useState(0);
-  const [size, setSize] = useState(0);
-  const [color, setColor] = useState(0);
+  
   const [rating, setRating] = useState(item.rating);
-  const [quantity, setQuantity] = useState(1);
+  
   return (
     <div className="flex flex-col md:flex-row md:justify-between gap-4 w-5/6 xl:w-7/12 pb-8">
       <div className=" max-h-[393px] flex flex-row gap-3">

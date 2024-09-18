@@ -16,19 +16,18 @@ body{
   font-family: 'Poppins',sans-serif; 
   box-sizing: border-box;
   user-select: none;
+  -webkit-user-select: none;
+  -ms-user-select: none;
+  -webkit-user-drag: none;
+  -khtml-user-drag: none; 
+  -moz-user-drag: none;
+  -ms-user-drag: none; 
 }
 h1,h2,h3,h4,h5,h6,.volkhov{
   font-family: 'Volkhov', serif;
 }
 .orbitron{
   font-family: 'Orbitron', sans-serif;
-}
-
-img {
-  -webkit-user-drag: none;
-  -khtml-user-drag: none; 
-  -moz-user-drag: none;
-  -ms-user-drag: none; 
 }
 .button{
   color: white;
@@ -50,6 +49,7 @@ img {
   outline: none;
   width: auto;
   border-bottom: 1px solid rgb(157, 157, 157);
+  border-radius: 0;
   font-size: 14px;
 }
 .input_auth:focus{

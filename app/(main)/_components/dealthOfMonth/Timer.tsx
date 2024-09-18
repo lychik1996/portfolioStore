@@ -3,7 +3,7 @@
 import { useEffect, useState } from 'react';
 import timerIntervalFunc from '../../../../components/timerFunction';
 
-let count = '2024-09-12T12:00:00';
+let count = '2024-10-12T12:00:00';
 export default function Timer() {
   const [time, setTime] = useState({
     days: 0,

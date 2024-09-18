@@ -27,7 +27,7 @@ export default function ScrollBar({
   }, []);
   return (
     <div
-      className="overflow-x-scroll w-11/12 scrollbar-hide rounded-xl"
+      className="overflow-x-scroll w-11/12 scrollbar-hide pb-2 rounded-xl"
       ref={scrollRef}
     >
       <div className=" flex justify-between gap-4 w-auto">
