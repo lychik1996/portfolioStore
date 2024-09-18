@@ -74,7 +74,8 @@ export default function Header() {
   }, []);
 
   return (
-    <header className="my-5 sm:my-10 flex flex-row justify-between  w-5/6 xl:w-7/12 py-1 items-center bg-white z-40">
+    <header className="my-5 sm:my-10 w-full flex justify-center bg-white z-40 header">
+      <div className='flex flex-row justify-between  w-5/6 xl:w-7/12 py-1 items-center'>
       <Link href={'/'} className="cursor-pointer">
         <h1 className=" text-2xl md:text-4xl uppercase">Fasco</h1>
       </Link>
@@ -194,6 +195,7 @@ export default function Header() {
           Sign In
         </Link>
       )}
+      </div>
     </header>
   );
 }

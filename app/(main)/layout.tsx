@@ -6,7 +6,7 @@ import ScrollTop from "@/components/ScrollTop";
 
 export default function layout({children}:{children:React.ReactNode}){
     return(
-        <div className="relative w-full flex flex-col h-full items-center" id="body">
+        <div className="relative w-full flex flex-col min-h-full items-center" id="body">
             <ModalDrawer/>
             <ScrollTop/>
             <Header/>

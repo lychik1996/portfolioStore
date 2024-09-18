@@ -7,6 +7,7 @@ import Item from './Item';
 import Link from 'next/link';
 import clsx from 'clsx';
 import Subtotal from './Subtotal';
+import useWindowWidth from '@/hooks/use-windowWidth';
 const arr = [
   {
     src: '1',
@@ -47,6 +48,7 @@ export default function ModalDrawer() {
   const [shouldClose, setShouldClose] = useState<boolean>(false);
   const modalRef = useRef<HTMLDivElement>(null);
   const [checkHidden, setCheckHidden] = useState(false);
+  const windowWidth = useWindowWidth();
 
   const handleTouchStart = useCallback((e: TouchEvent) => {
     startX.current = e.touches[0].clientX;
@@ -102,13 +104,17 @@ export default function ModalDrawer() {
   useEffect(() => {
     if (!isOpen) {
       document.documentElement.style.overflow='';
-      document.body.style.overflow='';
+      if(windowWidth >768){
+        document.documentElement.style.paddingRight="";
+      }
       setTranslateX(0);
     }else{
       document.documentElement.style.overflow='hidden';
-      document.body.style.overflow='hidden';
+      if(windowWidth>768){
+        document.documentElement.style.paddingRight="17px";
+      }
     }
-  }, [isOpen]);
+  }, [isOpen, windowWidth]);
 
   useEffect(() => {
     if (isOpen) {
