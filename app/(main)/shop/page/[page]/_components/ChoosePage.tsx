@@ -9,14 +9,14 @@ const COUNT_PAGE =Math.ceil(COUNT_ITEM/MAX_ITEM_PAGE);
 
 const arr = Array.from({ length: COUNT_PAGE}, (_, i) => String(i + 1));
 export default function ChoosePages({ page }: { page: number }) {
-    useEffect(() => {
-        const targetId =`target_page`;
-        const element = document.getElementById(targetId);
-        if (element) {
-          element.scrollIntoView({ block: 'start' });
-        }
-      }, [page]);
-    
+    // useEffect(() => {
+    //     const targetId =`target_page`;
+    //     const element = document.getElementById(targetId);
+    //     if (element) {
+    //       element.scrollIntoView({ block: 'start' });
+    //     }
+    //   }, [page]);
+    //delete if or add if need scroll 
   return (
     <div className="flex flex-row items-center justify-center gap-2">
         <div className='size-10'>
