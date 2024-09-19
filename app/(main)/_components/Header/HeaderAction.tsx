@@ -16,7 +16,7 @@ export default function HeaderAction({ search, setSearch }: HeaderActionProps) {
         <Image src="/home/header/search.svg" alt='' width='18' height="18" onClick={() => setSearch(true)} className='cursor-pointer'/>
         
       )}
-      <Link href="/">
+      <Link href="/user/123">
       <Image src="/home/header/user.svg" alt='' width='18' height="18" className='cursor-pointer'/>
         
       </Link>
