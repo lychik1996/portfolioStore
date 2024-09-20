@@ -7,7 +7,7 @@ interface UserProps {
 export default function User({ children, params }: UserProps) {
   return (
     <>
-      <div className="flex flex-col items-center gap-2 mb-2 md:mb-14">
+      <div className="flex flex-col items-center gap-2 mb-2 sm:mb-7">
         <h3 className="text-xl md:text-2xl xl:text-3xl">Shopping Cart</h3>
         <p className="text-xl"> Hello: {params?.id}</p>
       </div>

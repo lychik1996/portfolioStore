@@ -26,6 +26,7 @@ export default function Item({ item }: ItemProps) {
           width={181}
           height={241}
           className="w-[145px] h-[193px] sm:w-[181px] sm:h-[241px]"
+          
         />
         {item.count < 1 && (
           <div className=" absolute flex justify-center items-center text-center bg-slate-500 text-white rounded-full size-12 uppercase text-xs">
