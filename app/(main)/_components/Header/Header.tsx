@@ -50,7 +50,7 @@ export default function Header() {
   const handleScrollHeader = useCallback(()=>{
     const currentScrollY = window.scrollY;
    
-    if(currentScrollY-lastScrollYHeader>40){
+    if(currentScrollY>150 && currentScrollY-lastScrollYHeader>40){
       setVisibleHeader(false);
       setLastScrollYHeader(currentScrollY);
     }else if(lastScrollYHeader-currentScrollY>40){
