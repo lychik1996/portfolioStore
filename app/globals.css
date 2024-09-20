@@ -42,10 +42,7 @@ h1,h2,h3,h4,h5,h6,.volkhov{
   opacity: 0;
   width: 0px;
 }
-.header {
-  position: sticky;
-  top: 0;
-}
+
 
 .input_auth{
   height: 30px;

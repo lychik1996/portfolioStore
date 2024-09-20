@@ -1,7 +1,7 @@
 'use client';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { useEffect, useRef, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import clsx from 'clsx';
 import { FaChevronDown } from 'react-icons/fa';
 import HeaderAction from './HeaderAction';
@@ -44,6 +44,28 @@ export default function Header() {
   const dropSelectPagesRef = useRef<HTMLDivElement>(null);
   const searchRef = useRef<HTMLDivElement>(null);
   const pathName = usePathname();
+  const [visibleHeader, setVisibleHeader] = useState(true);
+  const [lastScrollYHeader, setLastScrollYHeader] = useState(0);
+  
+  const handleScrollHeader = useCallback(()=>{
+    const currentScrollY = window.scrollY;
+   
+    if(currentScrollY-lastScrollYHeader>40){
+      setVisibleHeader(false);
+      setLastScrollYHeader(currentScrollY);
+    }else if(lastScrollYHeader-currentScrollY>40){
+      setVisibleHeader(true);
+      setLastScrollYHeader(currentScrollY)
+    }
+  },[lastScrollYHeader])
+
+  useEffect(()=>{
+    window.addEventListener('scroll',handleScrollHeader)
+    return()=>{
+      window.removeEventListener('scroll',handleScrollHeader)
+    }
+  },[handleScrollHeader]);
+
 
   const handleClickOutSide = (event: MouseEvent) => {
     if (
@@ -74,7 +96,10 @@ export default function Header() {
   }, []);
 
   return (
-    <header className="my-5 sm:my-10 w-full flex justify-center bg-white z-40 header">
+    <header className={clsx(
+      "py-5 mb-6  shadow w-full flex justify-center bg-white z-40 sticky top-0 transition-transform duration-300 ease-in-out",
+      visibleHeader?'translate-y-0':"-translate-y-full"
+    )}>
       <div className='flex flex-row justify-between  w-5/6 xl:w-7/12 py-1 items-center'>
       <Link href={'/'} className="cursor-pointer">
         <h1 className=" text-2xl md:text-4xl uppercase">Fasco</h1>
