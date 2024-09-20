@@ -65,6 +65,14 @@ export default function Header() {
       window.removeEventListener('scroll',handleScrollHeader)
     }
   },[handleScrollHeader]);
+  
+  useEffect(()=>{
+    if(!visibleHeader){
+      setSelectHome(false);
+      setSelectPages(false);
+      setSearch(false);
+    }
+  },[visibleHeader])
 
 
   const handleClickOutSide = (event: MouseEvent) => {
