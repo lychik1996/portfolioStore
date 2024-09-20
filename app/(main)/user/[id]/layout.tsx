@@ -1,4 +1,5 @@
 
+import Subscribe from '../../_components/subscribe/Subscribe';
 import UserNavigate from './_components/UserNavigate';
 interface UserProps {
   children: React.ReactNode;
@@ -15,6 +16,7 @@ export default function User({ children, params }: UserProps) {
         <UserNavigate params={params}/>
         <div className='flex-1'>{children}</div>
       </div>
+      <Subscribe/>
     </>
   );
 }
