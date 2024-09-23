@@ -36,12 +36,13 @@ const navigate = [
   },
 ];
 interface UserNavigateProps {
-  params: { id: string };
+  params: { userId: string };
 }
 export default function UserNavigate({ params }: UserNavigateProps) {
   const path = usePathname();
-  const findPass = path?.split('/').pop();
-  const currentPath = findPass === params.id ? '' : findPass;
+  
+  const pathSegments = path.split('/');
+  const currentPath = pathSegments.length > 3 ? pathSegments[3] : '';
   return (
     <div className="flex flex-row w-full justify-around sm:justify-normal sm:w-auto sm:flex-col">
       {navigate.map((nav, i) => {
@@ -53,7 +54,7 @@ export default function UserNavigate({ params }: UserNavigateProps) {
         return (
           <Link
             key={i}
-            href={`/user/${params?.id}/${nav.path}`}
+            href={`/user/${params?.userId}/${nav.path}`}
             className={clsx(
               'w-[213px] flex-1 sm:flex-none flex flex-row gap-2 items-center justify-center transition-all ease-in-out duration-100 sm:justify-normal  p-2 sm:py-4 border-b-2 sm:border-b-0 sm:border-r-2 border-slate-300',
               isActive
