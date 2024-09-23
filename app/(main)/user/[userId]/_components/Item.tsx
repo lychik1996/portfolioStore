@@ -23,14 +23,14 @@ interface ItemProps{
 }
 export default function Item({item,userId,path}:ItemProps){
     return(
-        <div className="flex flex-col p-3  gap-3">
+      <div className="flex flex-col p-3  gap-3">
       <Link href={`/user/${userId}/${path}`} className='text-xl volkhov flex flex-row gap-2 items-center hover:scale-105 transition-transform duration-300 ease-in-out w-fit'><IoReturnDownBackSharp size={25}/>Back </Link>
       <div>
         <h3 className="text-xl text-slate-400">
           {' '}
           # {item?item.header.id:"We are not found info"}
         </h3>
-        <div className="flex flex-col gap-3 overflow-y-scroll scrollbar-hide max-h-[600px]">
+        <div className="flex flex-col pr-3 gap-3 overflow-y-scroll scrollbar-hide max-h-[600px] mb-4">
           {item?.products.map((it, i) => (
             <div key={i} className="flex flex-row gap-5 lg:gap-10 border-[1px] border-slate-200 shadow-sm p-2">
               <Image
@@ -54,6 +54,19 @@ export default function Item({item,userId,path}:ItemProps){
             </div>
           ))}
         </div>
+        {item && (
+          <div className="flex flex-row justify-between text-slate-400">
+          <p > Subtotal: {item.header.price % 1 === 0
+                    ? `${item.header.price}.00`
+                    : item.header.price.toFixed(2)}</p>
+          <p> Date: {new Date(item.header.date).toLocaleDateString('uk-UA', {
+                    day: '2-digit',
+                    month: '2-digit',
+                    year: '2-digit',
+                  })}</p>
+        </div>
+        )}
+        
       </div>
     </div>
     )
