@@ -25,7 +25,7 @@ interface ItemsProps {
 }
 export default function Items({items,userId,path}:ItemsProps){
     return(
-        <div className="flex flex-col gap-3 p-4 pt-2 max-h-[600px] overflow-y-scroll scrollbar-hide">
+        <div className="flex flex-col gap-3 p-3 max-h-[600px] overflow-y-scroll scrollbar-hide">
         {items.map((item, i) => (
           <Link
             className="flex flex-col gap-1 border-[1px] border-slate-200 px-2 py-3 shadow-sm hover:shadow-md hover:scale-105 transition-all duration-300 ease-in-out bg-white"

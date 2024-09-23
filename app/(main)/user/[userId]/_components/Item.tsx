@@ -28,7 +28,7 @@ export default function Item({item,userId,path}:ItemProps){
       <div>
         <h3 className="text-xl text-slate-400">
           {' '}
-          # {item?.header.id}
+          # {item?item.header.id:"We are not found info"}
         </h3>
         <div className="flex flex-col gap-3 overflow-y-scroll scrollbar-hide max-h-[600px]">
           {item?.products.map((it, i) => (
