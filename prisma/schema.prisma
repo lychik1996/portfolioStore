@@ -5,6 +5,12 @@ generator client {
 }
 
 datasource db {
-  provider = "mongodb"
-  url      = env("DATABASE_URL")
+  provider  = "postgresql"
+  url       = env("DATABASE_URL")
+  directUrl = env("DIRECT_URL")
+}
+
+model Subscribe {
+  id    String @id @default(uuid()) @db.Uuid
+  email String @unique
 }
