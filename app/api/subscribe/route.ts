@@ -1,7 +1,5 @@
-import { PrismaClient } from '@prisma/client';
+import db from "@/lib/db";
 
-
-const db = new PrismaClient();
 export const POST = async (req: Request) => {
   const { email } = await req.json();
   try {
