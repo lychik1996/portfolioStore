@@ -6,7 +6,6 @@ import axios from 'axios';
 import { toast } from "sonner";
 import clsx from "clsx";
 
-
 export default function Subscribe() {
  const [email,setEmail] = useState('');
  const [isLoading, startTransition] = useTransition();
@@ -39,7 +38,7 @@ export default function Subscribe() {
         Lorem ipsum dolor sit amet, consectetur adipiscing elit. Scelerisque duis ultrices sollicitudin aliquam sem. Scelerisque duis ultrices sollicitudin 
         </p>
         <form onSubmit={handeleSubscribe} className='flex flex-col items-center w-5/6 gap-4 sm:gap-7 mt-4' >
-            <input type="text"  value={email} onChange={(e)=>setEmail(e.target.value)} disabled={isLoading} className={clsx(
+            <input type="email"  value={email} onChange={(e)=>setEmail(e.target.value)} disabled={isLoading} className={clsx(
               ' outline-none text-xs md:text-base w-full sm:w-5/6 md:w-full  rounded-none py-1 pl-1 sm:py-3 sm:pl-3',
               isLoading?'opacity-50':'opacity-100'
             )} placeholder='michael@ymail.com' style={{boxShadow:'0px 3.02px 3.15px 0px rgba(0, 0, 0, 0.01),0px 13.28px 6.52px 0px rgba(0, 0, 0, 0.02),0px 32.6px 13px 0px rgba(0, 0, 0, 0.02),0px 62.79px 25.48px 0px rgba(0, 0, 0, 0.02),0px 105.65px 46.85px 0px rgba(0, 0, 0, 0.03),0px 163px 80px 0px rgba(0, 0, 0, 0.04)'}}/>
