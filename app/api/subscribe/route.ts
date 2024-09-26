@@ -1,16 +1,17 @@
-import db from "@/lib/db";
+import { prisma } from "@/lib/prisma";
+
 
 export const POST = async (req: Request) => {
   const { email } = await req.json();
   try {
-    const existingEmail = await db.subscribe.findUnique({
+    const existingEmail = await prisma.subscribe.findUnique({
       where: { email },
     });
     if (existingEmail) {
       return new Response(JSON.stringify({ message: "Email already exists" }), { status: 400 });
     }
 
-    const newSubscribe = await db.subscribe.create({
+    const newSubscribe = await prisma.subscribe.create({
       data: { email },
     });
 

@@ -1,5 +1,6 @@
 'use client';
 import { useModalDrawer } from '@/store/use-modalDrawer';
+import { useSession } from 'next-auth/react';
 import Image from 'next/image';
 import Link from 'next/link';
 
@@ -10,13 +11,14 @@ interface HeaderActionProps {
 
 export default function HeaderAction({ search, setSearch }: HeaderActionProps) {
   const {onOpen} = useModalDrawer(state=>state);
+  const {data:session} = useSession();
   return (
     <div className="flex flex-row gap-1 sm:gap-4 items-center h-5">
       {!search && (
         <Image src="/home/header/search.svg" alt='' width='18' height="18" onClick={() => setSearch(true)} className='cursor-pointer'/>
         
       )}
-      <Link href="/user/123">
+      <Link href={`/user/${session?.user.name}`}>
       <Image src="/home/header/user.svg" alt='' width='18' height="18" className='cursor-pointer'/>
         
       </Link>

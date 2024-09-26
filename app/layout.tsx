@@ -1,7 +1,8 @@
 import type { Metadata } from 'next';
 
 import './globals.css';
-import {Toaster} from "sonner";
+import { Toaster } from 'sonner';
+import SessionWrapper from '@/components/SessionWrapper';
 
 export const metadata: Metadata = {};
 
@@ -11,12 +12,13 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en">
-
-      <body >
-        <Toaster position='bottom-right'/>
-        {children}
+    <SessionWrapper>
+      <html lang="en">
+        <body>
+          <Toaster position="bottom-right" />
+          {children}
         </body>
-    </html>
+      </html>
+    </SessionWrapper>
   );
 }

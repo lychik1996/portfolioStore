@@ -9,7 +9,117 @@ datasource db {
   url       = env("DATABASE_URL")
   directUrl = env("DIRECT_URL")
 }
+model User{
+  id String @id @default(uuid()) @db.Uuid
+  email String @unique
+  sub String?
+  name String?
+  lastName String?
+  password String?
+  telephone String?
+  image String?
+  contactSave Boolean @default(false)
+  adress Address?
+  paymentOption PaymentOption?
+  favorite Favorite[]
+  drawer Drawer[]
+  order Order[]
+  return Return[]
+  ratings Rating[]
+}
 
+model Address {
+  id           String   @id @default(uuid()) @db.Uuid
+  country      String?
+  city         String?
+  street       String?
+  houseNumber  String?
+  apartment    String?
+  userId       String   @db.Uuid @unique
+  user         User     @relation(fields: [userId], references: [id])
+}
+model PaymentOption {
+  id             String   @id @default(uuid()) @db.Uuid
+  paymentType    String
+  cardNumber     String?
+  expiryDate     DateTime?
+  cvv            String?
+  billingAddress String?
+  userId         String   @db.Uuid @unique
+  user           User     @relation(fields: [userId], references: [id])
+}
+model Favorite{
+  id String @id @default(uuid()) @db.Uuid
+  userId String @db.Uuid @unique
+  user User @relation(fields: [userId],references: [id])
+  products Product[] @relation("FavoriteProducts")
+}
+model Drawer {
+  id        String        @id @default(uuid()) @db.Uuid
+  userId    String  @db.Uuid @unique
+  user      User          @relation(fields: [userId], references: [id])
+  items     DrawerItem[]  @relation("DrawerItems")
+  totalPrice Float
+}
+
+model DrawerItem {
+  id         String    @id @default(uuid()) @db.Uuid
+  drawer     Drawer    @relation("DrawerItems", fields: [drawerId], references: [id])
+  drawerId   String  @db.Uuid
+  product    Product   @relation("DrawerProducts", fields: [productId], references: [id])
+  productId  String @db.Uuid
+  quantity   Int       
+}
+model Order {
+  id        String   @id @default(uuid()) @db.Uuid
+  createAt  DateTime @default(now())
+  updateAt  DateTime @updatedAt
+  status    String
+  userID    String  @db.Uuid @unique
+  user      User     @relation(fields: [userID], references: [id])
+  products  Product[] @relation("OrderProducts")
+}
+model Return {
+  id        String   @id @default(uuid()) @db.Uuid
+  createAt  DateTime @default(now())
+  userID    String @db.Uuid @unique
+  user      User     @relation(fields: [userID], references: [id])
+  products  Product[] @relation("ReturnProducts")
+}
+model Product {
+  id          String     @id @default(uuid()) @db.Uuid
+  name        String
+  smallImgs   String[]
+  bigImgs     String[]
+  price       Float
+  oldprice    Float?
+  counts      Int
+  colors      String[]
+  sizes       String[]
+  tags        String[]
+  brand       String[]
+  gender      String
+  type        String
+  discountTime DateTime?
+  createAt    DateTime  @default(now())
+  rating      Float     @default(0.0)
+  votesCount  Int       @default(0)
+
+  favorites   Favorite[] @relation("FavoriteProducts")
+  drawers     DrawerItem[] @relation("DrawerProducts")
+  orders      Order[]     @relation("OrderProducts")
+  returns     Return[]    @relation("ReturnProducts")
+  ratings     Rating[]    
+}
+model Rating {
+  id        String   @id @default(uuid()) @db.Uuid
+  value     Int
+  productId String @db.Uuid
+  product   Product  @relation(fields: [productId], references: [id])
+  userId    String  @db.Uuid @unique
+  user      User     @relation(fields: [userId], references: [id])
+  @@unique([productId, userId]) // Це забезпечує, що користувач може оцінити продукт тільки один раз
+}
 model Subscribe {
   id    String @id @default(uuid()) @db.Uuid
   email String @unique

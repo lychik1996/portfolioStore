@@ -7,6 +7,7 @@ import { FaChevronDown } from 'react-icons/fa';
 import HeaderAction from './HeaderAction';
 import Portal from '@/components/Portal';
 import HeaderOption from './HeaderOption';
+import { useSession } from 'next-auth/react';
 let optionsHome = [
   {
     name: 'Deals',
@@ -36,7 +37,8 @@ let optionsPages = [
   },
 ];
 export default function Header() {
-  const [test, setTest] = useState(true); // for test Header Actions
+  const {data:session} = useSession();
+  
   const [selectHome, setSelectHome] = useState(false);
   const [selectPages, setSelectPages] = useState(false);
   const [search, setSearch] = useState(false);
@@ -221,7 +223,7 @@ export default function Header() {
           </Portal>
         )}
       </div>
-      {test ? (
+      { session ? (
         <HeaderAction search={search} setSearch={setSearch} />
       ) : (
         <Link href="/signIn" className="button lg:px-9 px-5 ">

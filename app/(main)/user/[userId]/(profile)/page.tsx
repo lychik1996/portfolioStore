@@ -1,16 +1,13 @@
 "use client"
+import useUser from "@/hooks/useUser";
 import clsx from "clsx";
+
 import { useState } from "react";
 
-const userData = {
-  firstName: 'Vitaliy',
-  lastName: 'Khatsey',
-  email: 'vitaliy.khatsey@gmail.com',
-  pass: '12345Zz',
-};
 
 export default function Profile() {
     const [edit, setEdit] = useState(false);
+    const user = useUser()
   return (
     <div className="flex flex-col gap-3 p-3">
       <h4 className=" text-2xl">Profile</h4>
@@ -27,7 +24,7 @@ export default function Profile() {
             }
             required={true}
             disabled={!edit}
-            value={userData.firstName}
+            value={user?.name || ''}
             placeholder="First Name"
           />
           <input
@@ -40,7 +37,7 @@ export default function Profile() {
             required={true}
             disabled={!edit}
             placeholder="Last Name"
-            value={userData.lastName}
+            value={user?.lastName || ''}
           />
         </div>
         </label>
@@ -56,7 +53,7 @@ export default function Profile() {
         }
         required={true}
         disabled={!edit}
-          value={userData.email}
+          value={user?.email || ''}
           placeholder="Email"
         />
         </label>
