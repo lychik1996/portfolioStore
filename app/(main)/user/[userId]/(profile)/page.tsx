@@ -14,6 +14,7 @@ interface FormData {
   lastName?: string;
   password?: string;
   confirmPassword?: string;
+  telephone?:string;
 }
 export default function Profile() {
   const user = useUser();
@@ -28,6 +29,7 @@ export default function Profile() {
       lastName: '',
       password: '',
       confirmPassword: '',
+      telephone:'',
     },
   });
   const [initialValues, setInitialValues] = useState<FormData | null>(null);
@@ -43,11 +45,13 @@ export default function Profile() {
         .catch(() => toast.error('Something went wrong'));
     }
   }, [debouncedValue, user?.email]);
+
   useEffect(() => {
     if (user) {
       const initialValues: FormData = {
         name: user.name || '',
         lastName: user.lastName || '',
+        telephone:user.telephone || '',
         password: '',
         confirmPassword: '',
       };
@@ -67,6 +71,7 @@ export default function Profile() {
           email: user.email,
           name: data.name,
           lastName: data.lastName || '',
+          telephone:data.telephone || '',
           ...(data.password && { password: data.password }),
         });
   
@@ -77,6 +82,7 @@ export default function Profile() {
         reset({
           name: data.name,
           lastName: data.lastName || '',
+          telephone:data.telephone || '',
           password: '',
           confirmPassword: '',
         });
@@ -149,6 +155,22 @@ export default function Profile() {
             disabled={true}
             value={user?.email || ''}
             placeholder="Email"
+          />
+        </label>
+        <label className="flex flex-col gap-4">
+          Phone
+          <input
+            type="text"
+            className={clsx(
+              'input_info_user placeholder:text-slate-500',
+              edit
+                ? 'text-black'
+                : 'text-slate-500 select-none pointer-events-none',
+                loading && 'text-slate-500 select-none pointer-events-none',
+            )}
+            {...register('telephone', { value: user?.telephone || '' })}
+            disabled={!edit || loading}
+            placeholder="Phone"
           />
         </label>
         <div className="flex flex-col gap-4">

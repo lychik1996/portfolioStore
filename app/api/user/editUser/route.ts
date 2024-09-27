@@ -2,7 +2,7 @@
 import { prisma } from "@/lib/prisma";
 
 export const PATCH = async(req:Request)=>{
-    const {email,name,lastName,password} = await req.json();
+    const {email,name,lastName,password, telephone} = await req.json();
     try{
         if(!email){
             return new Response(JSON.stringify({ message: "Email parameter is missing" }), { status: 400 });
@@ -12,6 +12,7 @@ export const PATCH = async(req:Request)=>{
             data:{
                 name,
                 lastName: lastName || '',
+                telephone:telephone || '',
                 ...(password && { password })
             }
         })

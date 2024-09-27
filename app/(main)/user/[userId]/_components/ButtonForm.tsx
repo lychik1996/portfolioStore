@@ -26,7 +26,10 @@ export default function ButtonForm({edit,handleCancelEdit,handleEditClick,loadin
           >
             <button
               type="button"
-              className="px-2 md:px-6 py-2 bg-slate-600 text-white rounded-lg shadow-lg hover:scale-110 transition-all duration-200 ease-in-out"
+              className={clsx(
+                "px-2 md:px-6 py-2 bg-slate-600 text-white rounded-lg shadow-lg hover:scale-110 transition-all duration-200 ease-in-out",
+                loading && 'bg-slate-300 cursor-default'
+              )}
               onClick={handleCancelEdit}
               disabled={loading}
             >
