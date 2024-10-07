@@ -31,8 +31,6 @@ model User{
   expiryDate     DateTime?
   cvv            String?
   billingAddress String?
-
-  
   favorite Favorite[]
   drawer Drawer[]
   order Order[]
@@ -90,14 +88,14 @@ model Product {
   colors      String[]
   sizes       String[]
   tags        String[]
-  brand       String[]
+  brand       String
   gender      String
-  type        String
+  collection  String[]
   discountTime DateTime?
   createAt    DateTime  @default(now())
   rating      Float     @default(0.0)
   votesCount  Int       @default(0)
-
+  viewsNow   String[]
   favorites   Favorite[] @relation("FavoriteProducts")
   drawers     DrawerItem[] @relation("DrawerProducts")
   orders      Order[]     @relation("OrderProducts")
@@ -111,7 +109,7 @@ model Rating {
   product   Product  @relation(fields: [productId], references: [id])
   userId    String  @db.Uuid @unique
   user      User     @relation(fields: [userId], references: [id])
-  @@unique([productId, userId]) // Це забезпечує, що користувач може оцінити продукт тільки один раз
+  @@unique([productId, userId])
 }
 model Subscribe {
   id    String @id @default(uuid()) @db.Uuid

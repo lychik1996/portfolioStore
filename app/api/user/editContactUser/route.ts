@@ -21,7 +21,7 @@ export const PATCH = async(req:Request)=>{
                 houseNumber: houseNumber || '',
                 apartment : apartment || ''
             }
-        })
+        });
         return new Response(JSON.stringify({ message: `User: ${editUser.name} updated successfully`}), { status: 200 });
     }catch{
         return new Response(JSON.stringify({ message: "Something went wrong" }), { status: 500 });

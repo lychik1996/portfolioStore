@@ -216,7 +216,7 @@ export default function Header() {
         ) : (
           <Portal isOpen={search} reference={searchRef}>
             <input
-              className="w-44 md:w-72 lg:w-96 pl-2 pb-[2px] outline-none border-b-2 rounded-none border-slate-300 focus:border-black"
+              className="w-44  sm:w-72 lg:w-96 pl-2 pb-[2px] outline-none border-b-2 rounded-none border-slate-300 focus:border-black"
               type="text"
               placeholder="Search..."
             />
