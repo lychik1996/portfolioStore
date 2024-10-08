@@ -5,6 +5,7 @@ import axios from 'axios';
 import { CircularProgress } from '@mui/material';
 import { useFilterStore } from '@/store/use-filterStore';
 import { useDebounce } from '@/hooks/useDebounce';
+import useWindowWidth from '@/hooks/use-windowWidth';
 
 
 
@@ -21,14 +22,16 @@ export default function Items({ page }: { page: number }) {
   const [items,setItems] = useState<ItemProps[]>([]);
   const [loading,setLoading] = useState(false);
   const { sizes, colors, prices, brands, collections, tags } = useFilterStore();
-
+  const windowWidth = useWindowWidth();
+  const debounceWindowWidth:number = useDebounce(windowWidth,500);
+  const count = debounceWindowWidth>697?9:8;
   const debouncedSizes = useDebounce(sizes, 500);
   const debouncedColors = useDebounce(colors, 500);
   const debouncedPrices = useDebounce(prices, 500);
   const debouncedBrands = useDebounce(brands, 500);
   const debouncedCollections = useDebounce(collections, 500);
   const debouncedTags = useDebounce(tags, 500);
-  const count = 9;
+  
     useEffect(()=>{
       const getItems = async()=>{
         setLoading(true);
@@ -51,7 +54,7 @@ export default function Items({ page }: { page: number }) {
         .finally(()=>setLoading(false))
       };
       getItems();
-    },[page, debouncedSizes, debouncedColors, debouncedPrices, debouncedBrands, debouncedCollections, debouncedTags]);
+    },[page, debouncedSizes, debouncedColors, debouncedPrices, debouncedBrands, debouncedCollections, debouncedTags,count]);
     
     if(loading){
       return(
