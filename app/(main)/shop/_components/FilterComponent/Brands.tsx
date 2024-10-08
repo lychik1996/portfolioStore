@@ -2,20 +2,39 @@ import { useState } from 'react';
 
 import HeaderFilterComponent from './HeaderFilterComponent';
 import clsx from 'clsx';
-const brands = ['Minimog', 'Retrolie', 'Brook', 'Learts', 'Vagabond', 'Abby'];
+import { useFilterStore } from '@/store/use-filterStore';
+import { useRouter } from 'next/navigation';
+const brandsArr = [
+  'Minimog',
+  'Retrolie',
+  'Brook',
+  'Learts',
+  'Vagabond',
+  'Abby',
+];
 export default function Brands() {
-  const [brand, setBrand] = useState<number | null>(null);
+  const { brands, setBrands } = useFilterStore();
   const [open, setOpen] = useState(false);
+  const router = useRouter();
+  const toggle = (item: string) => {
+    if (brands.includes(item)) {
+      setBrands(brands.filter((i) => i !== item));
+      router.push('/shop/page/1',{scroll:false})
+    } else {
+      setBrands([...brands, item]);
+      router.push('/shop/page/1',{scroll:false})
+    }
+  };
 
   return (
     <div className="flex flex-col gap-3">
       <HeaderFilterComponent
         name="Brands"
-        setDefault={setBrand}
+        setDefault={() => setBrands([])}
         action
         setOpen={setOpen}
         open={open}
-        exist={brand}
+        exist={brands}
       />
       <div
         className={clsx(
@@ -24,14 +43,16 @@ export default function Brands() {
         )}
       >
         <div className="flex flex-row flex-wrap gap-2 max-w-72">
-          {brands.map((br, i) => (
+          {brandsArr.map((item, i) => (
             <p
               key={i}
-              onClick={() => setBrand(i)}
+              onClick={() => toggle(item)}
               role="button"
-              className={clsx(i === brand ? 'text-black' : 'text-slate-400')}
+              className={clsx(
+                brands.includes(item) ? 'text-black' : 'text-slate-400'
+              )}
             >
-              {br}
+              {item}
             </p>
           ))}
         </div>

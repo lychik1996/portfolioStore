@@ -1,4 +1,6 @@
 "use client";
+import { useDebounce } from '@/hooks/useDebounce';
+import { useFilterStore } from '@/store/use-filterStore';
 import axios from 'axios';
 import clsx from 'clsx';
 import Link from 'next/link';
@@ -10,9 +12,26 @@ import { useEffect, useState } from 'react';
 export default function ChoosePages({ page }: { page: number }) {
   const MAX_ITEM_PAGE=9;
   const [arr,setArr] = useState<string[]>([]);
+  const { sizes, colors, prices, brands, collections, tags } = useFilterStore();
+
+  const debouncedSizes = useDebounce(sizes, 500);
+  const debouncedColors = useDebounce(colors, 500);
+  const debouncedPrices = useDebounce(prices, 500);
+  const debouncedBrands = useDebounce(brands, 500);
+  const debouncedCollections = useDebounce(collections, 500);
+  const debouncedTags = useDebounce(tags, 500);
   useEffect(()=>{
     const getCounts = async()=>{
-      const res=await axios.get('/api/products/shop')
+      const res=await axios.get('/api/products/shop',{
+        params:{
+          sizes: debouncedSizes.length > 0 ? debouncedSizes : undefined,
+            colors: debouncedColors.length > 0 ? debouncedColors : undefined,
+            prices: debouncedPrices.length > 0 ? debouncedPrices : undefined,
+            brands: debouncedBrands.length > 0 ? debouncedBrands : undefined,
+            collections: debouncedCollections !== 'All products' ? debouncedCollections : undefined,
+            tags: debouncedTags.length > 0 ? debouncedTags : undefined,
+        }
+      })
       .then(res=>{
         const counts = res.data;
         const countsPage = Math.ceil(counts/MAX_ITEM_PAGE);
@@ -21,7 +40,7 @@ export default function ChoosePages({ page }: { page: number }) {
       .catch(()=>console.error("something went wrong"));
     }
     getCounts();
-  },[]);
+  },[debouncedBrands,debouncedCollections,debouncedColors, debouncedPrices, debouncedSizes,debouncedTags]);
   
   
   

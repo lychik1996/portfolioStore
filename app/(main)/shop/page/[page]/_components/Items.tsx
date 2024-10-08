@@ -3,6 +3,10 @@ import { useEffect, useState } from 'react';
 import Item from './Item';
 import axios from 'axios';
 import { CircularProgress } from '@mui/material';
+import { useFilterStore } from '@/store/use-filterStore';
+import { useDebounce } from '@/hooks/useDebounce';
+
+
 
 interface ItemProps{
   name: string,
@@ -11,31 +15,58 @@ interface ItemProps{
   oldPrice:number | null,
   colors:string[],
   counts:number,
+  id:string,
 }
 export default function Items({ page }: { page: number }) {
   const [items,setItems] = useState<ItemProps[]>([]);
   const [loading,setLoading] = useState(false);
+  const { sizes, colors, prices, brands, collections, tags } = useFilterStore();
+
+  const debouncedSizes = useDebounce(sizes, 500);
+  const debouncedColors = useDebounce(colors, 500);
+  const debouncedPrices = useDebounce(prices, 500);
+  const debouncedBrands = useDebounce(brands, 500);
+  const debouncedCollections = useDebounce(collections, 500);
+  const debouncedTags = useDebounce(tags, 500);
   const count = 9;
     useEffect(()=>{
       const getItems = async()=>{
         setLoading(true);
-        const res = await axios.get(`/api/products/shop/?page=${page}&count=${count}`)
+        const res = await axios.get(`/api/products/shop/`,{
+          params:{
+            page,
+            count,
+            sizes: debouncedSizes.length > 0 ? debouncedSizes : undefined,
+            colors: debouncedColors.length > 0 ? debouncedColors : undefined,
+            prices: debouncedPrices.length > 0 ? debouncedPrices : undefined,
+            brands: debouncedBrands.length > 0 ? debouncedBrands : undefined,
+            collections: debouncedCollections !== 'All products' ? debouncedCollections : undefined,
+            tags: debouncedTags.length > 0 ? debouncedTags : undefined,
+          }
+        })
         .then(res=>{
           setItems(res.data);
-          setLoading(false);
         })
         .catch(()=>console.error("Something went wrong"))
+        .finally(()=>setLoading(false))
       };
       getItems();
-    },[page]);
+    },[page, debouncedSizes, debouncedColors, debouncedPrices, debouncedBrands, debouncedCollections, debouncedTags]);
     
     if(loading){
       return(
-        <div className="flex-1 flex justify-center w-full items-center h-[400px]">
-            <div className="flex flex-row gap-5 items-center">
+        <div className="flex-1 flex justify-center w-full pt-32 sm:pt-52  min-h-[400px] sm:min-h-[1091px]">
+            <div className="flex flex-row gap-5">
             <h3 className="text-2xl">Loading...</h3>
             <CircularProgress color="inherit"/>
             </div>
+        </div>
+      )
+    }
+    if(items.length===0){
+      return(
+        <div className='flex-1 flex justify-center w-full pt-32 sm:pt-52  min-h-[400px] sm:min-h-[1091px] text-slate-400 text-xl'>
+          Products not found
         </div>
       )
     }

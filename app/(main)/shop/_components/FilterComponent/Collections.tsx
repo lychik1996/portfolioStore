@@ -2,25 +2,27 @@ import { useState } from 'react';
 
 import HeaderFilterComponent from './HeaderFilterComponent';
 import clsx from 'clsx';
-const collections = [
+import { useFilterStore } from '@/store/use-filterStore';
+import { useRouter } from 'next/navigation';
+const collectionsArr = [
   'All products',
   'Best sellers',
   'New arrivals',
   'Accessories',
 ];
 export default function Collections() {
-  const [collection, setCollection] = useState<number | null>(0);
+  const { collections, setCollections } = useFilterStore();
   const [open, setOpen] = useState(false);
-
+  const router = useRouter();
   return (
     <div className="flex flex-col gap-3">
       <HeaderFilterComponent
         name="Collections"
-        setDefault={setCollection}
+        setDefault={() => setCollections('All products')}
         action
         setOpen={setOpen}
         open={open}
-        exist={collection}
+        exist={collections}
       />
       <div
         className={clsx(
@@ -29,16 +31,19 @@ export default function Collections() {
         )}
       >
         <div className="flex flex-col gap-2 max-w-72">
-          {collections.map((cl, i) => (
+          {collectionsArr.map((item, i) => (
             <p
               key={i}
-              onClick={() => setCollection(i)}
+              onClick={() => {
+                setCollections(item);
+                router.push('/shop/page/1',{scroll:false})
+              }}
               role="button"
               className={clsx(
-                i === collection ? 'text-black' : 'text-slate-400'
+                collections === item ? 'text-black' : 'text-slate-400'
               )}
             >
-              {cl}
+              {item}
             </p>
           ))}
         </div>

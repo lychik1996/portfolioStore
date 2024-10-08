@@ -20,6 +20,7 @@
     "cookie-parser": "^1.4.6",
     "date-fns": "^3.6.0",
     "jsonwebtoken": "^9.0.2",
+    
     "next": "14.2.5",
     "next-auth": "^4.24.7",
     "prisma": "^5.19.1",
@@ -32,6 +33,7 @@
     "zustand": "^4.5.5"
   },
   "devDependencies": {
+    
     "@types/node": "^20",
     "@types/react": "^18",
     "@types/react-dom": "^18",

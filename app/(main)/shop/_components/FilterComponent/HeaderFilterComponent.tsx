@@ -1,4 +1,7 @@
+
 import clsx from 'clsx';
+import { useRouter } from 'next/navigation';
+
 import { FaChevronDown } from 'react-icons/fa';
 import { MdOutlineDisabledByDefault } from 'react-icons/md';
 interface HeaderFilterComponentProps {
@@ -7,7 +10,7 @@ interface HeaderFilterComponentProps {
   open?: boolean;
   setOpen?: (open: boolean) => void;
   action?: boolean;
-  exist: null | number,
+  exist: string[] | string;
 }
 export default function HeaderFilterComponent({
   setDefault,
@@ -15,16 +18,22 @@ export default function HeaderFilterComponent({
   open,
   setOpen,
   action,
-  exist
+  exist,
 }: HeaderFilterComponentProps) {
-  const isCollection = name ==="Collections";
-  const canShowIcon = isCollection ? exist !== null && exist > 0 : exist !== null;
-  
+  const router = useRouter();
+  const isCollection = name === 'Collections';
+  const canShowIcon = isCollection
+    ? typeof exist === 'string' && exist !== 'All products'
+    : Array.isArray(exist) && exist.length > 0;
+
   return (
-    <div className={clsx(
-"flex flex-row justify-between items-center",
-setOpen && 'cursor-pointer'
-    )} onClick={() => setOpen && setOpen(!open)}>
+    <div
+      className={clsx(
+        'flex flex-row justify-between items-center',
+        setOpen && 'cursor-pointer'
+      )}
+      onClick={() => setOpen && setOpen(!open)}
+    >
       <h4 className="text-base lg:text-xl">{name}</h4>
       <div className="flex flex-row gap-3">
         {action && (
@@ -38,10 +47,11 @@ setOpen && 'cursor-pointer'
         {canShowIcon && (
           <MdOutlineDisabledByDefault
             className="cursor-pointer text-slate-400 active:text-black"
-            onClick={(e) =>{
+            onClick={(e) => {
               e.stopPropagation();
-              setDefault(isCollection ? 0 : null)
-            } }
+              setDefault(isCollection ? 'All products' : []);
+              router.push('/shop/page/1',{scroll:false})
+            }}
           />
         )}
       </div>
