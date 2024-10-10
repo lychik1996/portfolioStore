@@ -25,7 +25,7 @@ export default function Items({ page }: { page: number }) {
   const windowWidth = useWindowWidth();
   const debounceWindowWidth:number = useDebounce(windowWidth,300);
   const previousDebounceWindowWidth = useRef(debounceWindowWidth);
-  const count = previousDebounceWindowWidth.current>697?9:8;
+  const count = debounceWindowWidth>697?9:8;
   const debouncedSizes = useDebounce(sizes, 500);
   const debouncedColors = useDebounce(colors, 500);
   const debouncedPrices = useDebounce(prices, 500);
