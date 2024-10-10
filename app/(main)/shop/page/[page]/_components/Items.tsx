@@ -1,5 +1,5 @@
 
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import Item from './Item';
 import axios from 'axios';
 import { CircularProgress } from '@mui/material';
@@ -20,11 +20,12 @@ interface ItemProps{
 }
 export default function Items({ page }: { page: number }) {
   const [items,setItems] = useState<ItemProps[]>([]);
-  const [loading,setLoading] = useState(false);
+  const [loading,setLoading] = useState(true);
   const { sizes, colors, prices, brands, collections, tags } = useFilterStore();
   const windowWidth = useWindowWidth();
-  const debounceWindowWidth:number = useDebounce(windowWidth,500);
-  const count = debounceWindowWidth>697?9:8;
+  const debounceWindowWidth:number = useDebounce(windowWidth,300);
+  const previousDebounceWindowWidth = useRef(debounceWindowWidth);
+  const count = previousDebounceWindowWidth.current>697?9:8;
   const debouncedSizes = useDebounce(sizes, 500);
   const debouncedColors = useDebounce(colors, 500);
   const debouncedPrices = useDebounce(prices, 500);
@@ -32,29 +33,35 @@ export default function Items({ page }: { page: number }) {
   const debouncedCollections = useDebounce(collections, 500);
   const debouncedTags = useDebounce(tags, 500);
   
-    useEffect(()=>{
-      const getItems = async()=>{
-        setLoading(true);
-        const res = await axios.get(`/api/products/shop/`,{
-          params:{
-            page,
-            count,
-            sizes: debouncedSizes.length > 0 ? debouncedSizes : undefined,
-            colors: debouncedColors.length > 0 ? debouncedColors : undefined,
-            prices: debouncedPrices.length > 0 ? debouncedPrices : undefined,
-            brands: debouncedBrands.length > 0 ? debouncedBrands : undefined,
-            collections: debouncedCollections !== 'All products' ? debouncedCollections : undefined,
-            tags: debouncedTags.length > 0 ? debouncedTags : undefined,
-          }
-        })
-        .then(res=>{
-          setItems(res.data);
-        })
-        .catch(()=>console.error("Something went wrong"))
-        .finally(()=>setLoading(false))
-      };
-      getItems();
-    },[page, debouncedSizes, debouncedColors, debouncedPrices, debouncedBrands, debouncedCollections, debouncedTags,count]);
+  useEffect(() => {
+    const getItems = async () => {
+        if (previousDebounceWindowWidth.current !== debounceWindowWidth) {
+            setLoading(true);
+            try {
+                const res = await axios.get(`/api/products/shop/`, {
+                    params: {
+                        page,
+                        count,
+                        sizes: debouncedSizes.length > 0 ? debouncedSizes : undefined,
+                        colors: debouncedColors.length > 0 ? debouncedColors : undefined,
+                        prices: debouncedPrices.length > 0 ? debouncedPrices : undefined,
+                        brands: debouncedBrands.length > 0 ? debouncedBrands : undefined,
+                        collections: debouncedCollections !== 'All products' ? debouncedCollections : undefined,
+                        tags: debouncedTags.length > 0 ? debouncedTags : undefined,
+                    }
+                });
+                setItems(res.data);
+            } catch (error) {
+                console.error("Something went wrong", error);
+            } finally {
+                setLoading(false);
+            }
+        }
+        previousDebounceWindowWidth.current = debounceWindowWidth;
+    };
+
+    getItems();
+}, [page, debouncedSizes, debouncedColors, debouncedPrices, debouncedBrands, debouncedCollections, debouncedTags, count, debounceWindowWidth]);
     
     if(loading){
       return(

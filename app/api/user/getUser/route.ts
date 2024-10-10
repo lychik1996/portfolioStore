@@ -1,5 +1,4 @@
 import getUser from "@/lib/getUser";
-import { getSession } from "next-auth/react";
 
 
 export const GET = async (req: Request) => {

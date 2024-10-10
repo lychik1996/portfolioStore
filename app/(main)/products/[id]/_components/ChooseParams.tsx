@@ -32,7 +32,7 @@ export default function ChooseParams({ colors, sizes }: ChooseParamsProps) {
         </div>
       </div>
       <div className="flex flex-col gap-3">
-        <p className="volkhov" >Color: <span style={{color:colors[color]}}>{colors[color]}</span></p>
+        <p className="volkhov" >Color</p>
         <div className="flex flex-row gap-2">
           {colors.map((cl, i) => (
             <ColorButton key={i} cl={cl} color={color} index={i} setColor={setColor} width="40px" height="40px"/>

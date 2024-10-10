@@ -94,8 +94,7 @@ model Product {
   discountTime DateTime?
   createAt    DateTime  @default(now())
   rating      Float     @default(0.0)
-  votesCount  Int       @default(0)
-  viewsNow   String[]
+  votesCount  String[]
   favorites   Favorite[] @relation("FavoriteProducts")
   drawers     DrawerItem[] @relation("DrawerProducts")
   orders      Order[]     @relation("OrderProducts")

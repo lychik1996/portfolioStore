@@ -59,7 +59,6 @@ export const GET = async (req: Request) => {
           }),
         },
       });
-      console.log(countItems);
       
       return new Response(JSON.stringify(countItems), { status: 200 });
     } else {
