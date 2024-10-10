@@ -24,7 +24,7 @@ export default function Items({ page }: { page: number }) {
   const { sizes, colors, prices, brands, collections, tags } = useFilterStore();
   const windowWidth = useWindowWidth();
   const debounceWindowWidth:number = useDebounce(windowWidth,300);
-  const previousDebounceWindowWidth = useRef(debounceWindowWidth);
+  
   const count = debounceWindowWidth>697?9:8;
   const debouncedSizes = useDebounce(sizes, 500);
   const debouncedColors = useDebounce(colors, 500);
@@ -35,7 +35,6 @@ export default function Items({ page }: { page: number }) {
   
   useEffect(() => {
     const getItems = async () => {
-        if (previousDebounceWindowWidth.current !== debounceWindowWidth) {
             setLoading(true);
             try {
                 const res = await axios.get(`/api/products/shop/`, {
@@ -57,9 +56,6 @@ export default function Items({ page }: { page: number }) {
                 setLoading(false);
             }
         }
-        previousDebounceWindowWidth.current = debounceWindowWidth;
-    };
-
     getItems();
 }, [page, debouncedSizes, debouncedColors, debouncedPrices, debouncedBrands, debouncedCollections, debouncedTags, count, debounceWindowWidth]);
     
