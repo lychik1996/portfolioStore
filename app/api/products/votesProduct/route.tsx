@@ -1,7 +1,7 @@
 import getUser from "@/lib/getUser";
 import { prisma } from "@/lib/prisma";
 
-export const PATCH = async(req:Response)=>{
+export const PATCH = async(req:Request)=>{
     const {email, rating, id} = await req.json();
     
     
