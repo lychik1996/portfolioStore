@@ -22,7 +22,7 @@ export default function Item({
   styleDiv,
   main,
   styleBlock,
-  index
+  
 }: ItemProps) {
   const [total, setTolal] = useState(0);
   useEffect(()=>{
@@ -32,7 +32,7 @@ export default function Item({
     const newCount = item.count - 1;
     onCountChange(newCount);
   };
-
+  
   const handleIncrement = () => {
     const newCount = item.count + 1;
     onCountChange(newCount);

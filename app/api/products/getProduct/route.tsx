@@ -37,8 +37,6 @@ export const GET = async (req: Request) => {
       votesCount: product.votesCount.length,
     };
     
-    
-    
     return new Response(JSON.stringify(formattedProduct), { status: 200 });
   } catch {
     return new Response(JSON.stringify({ message: 'Something went wrong' }), {

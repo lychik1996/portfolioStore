@@ -19,63 +19,20 @@ model User{
   telephone String?
   image String?
   contactSave Boolean @default(false)
-
   country      String?
   city         String?
   street       String?
   houseNumber  String?
   apartment    String?
-
   paymentType    String?
   cardNumber     String?
   expiryDate     DateTime?
   cvv            String?
   billingAddress String?
-  favorite Favorite[]
-  drawer Drawer[]
+  favorite Favorite?
+  drawer Drawer?
   order Order[]
   return Return[]
-  ratings Rating[]
-}
-
-
-model Favorite{
-  id String @id @default(uuid()) @db.Uuid
-  userId String @db.Uuid @unique
-  user User @relation(fields: [userId],references: [id])
-  products Product[] @relation("FavoriteProducts")
-}
-model Drawer {
-  id        String        @id @default(uuid()) @db.Uuid
-  userId    String  @db.Uuid @unique
-  user      User          @relation(fields: [userId], references: [id])
-  items     DrawerItem[]  @relation("DrawerItems")
-  totalPrice Float
-}
-
-model DrawerItem {
-  id         String    @id @default(uuid()) @db.Uuid
-  drawer     Drawer    @relation("DrawerItems", fields: [drawerId], references: [id])
-  drawerId   String  @db.Uuid
-  product    Product   @relation("DrawerProducts", fields: [productId], references: [id])
-  productId  String @db.Uuid
-  quantity   Int       
-}
-model Order {
-  id        String   @id @default(uuid()) @db.Uuid
-  createAt  DateTime @default(now())
-  updateAt  DateTime @updatedAt
-  status    String
-  userID    String  @db.Uuid @unique
-  user      User     @relation(fields: [userID], references: [id])
-  products  Product[] @relation("OrderProducts")
-}
-model Return {
-  id        String   @id @default(uuid()) @db.Uuid
-  createAt  DateTime @default(now())
-  userID    String @db.Uuid @unique
-  user      User     @relation(fields: [userID], references: [id])
-  products  Product[] @relation("ReturnProducts")
 }
 model Product {
   id          String     @id @default(uuid()) @db.Uuid
@@ -96,20 +53,55 @@ model Product {
   rating      Float     @default(0.0)
   votesCount  String[]
   favorites   Favorite[] @relation("FavoriteProducts")
-  drawers     DrawerItem[] @relation("DrawerProducts")
+  drawers     DrawerItem[] 
   orders      Order[]     @relation("OrderProducts")
-  returns     Return[]    @relation("ReturnProducts")
-  ratings     Rating[]    
+  returns     Return[]    @relation("ReturnProducts") 
 }
-model Rating {
-  id        String   @id @default(uuid()) @db.Uuid
-  value     Int
+model DrawerItem{
+  id        String        @id @default(uuid()) @db.Uuid
+  drawerId String @db.Uuid
   productId String @db.Uuid
-  product   Product  @relation(fields: [productId], references: [id])
-  userId    String  @db.Uuid @unique
-  user      User     @relation(fields: [userId], references: [id])
-  @@unique([productId, userId])
+  countsDrawer Int
+  color String
+  size String
+  img String
+  price Float
+  drawer Drawer @relation(fields: [drawerId], references: [id])
+  product Product @relation(fields: [productId],references: [id])
 }
+
+model Drawer {
+  id        String        @id @default(uuid()) @db.Uuid
+  userId    String  @db.Uuid @unique
+  user      User          @relation(fields: [userId], references: [id])
+  items     DrawerItem[]
+}
+
+model Favorite{
+  id String @id @default(uuid()) @db.Uuid
+  userId String @db.Uuid @unique
+  user User @relation(fields: [userId],references: [id])
+  products Product[] @relation("FavoriteProducts")
+}
+
+model Order {
+  id        String   @id @default(uuid()) @db.Uuid
+  createAt  DateTime @default(now())
+  updateAt  DateTime @updatedAt
+  status    String
+  userID    String  @db.Uuid @unique
+  user      User     @relation(fields: [userID], references: [id])
+  products  Product[] @relation("OrderProducts")
+}
+model Return {
+  id        String   @id @default(uuid()) @db.Uuid
+  createAt  DateTime @default(now())
+  userID    String @db.Uuid @unique
+  user      User     @relation(fields: [userID], references: [id])
+  products  Product[] @relation("ReturnProducts")
+}
+
+
 model Subscribe {
   id    String @id @default(uuid()) @db.Uuid
   email String @unique

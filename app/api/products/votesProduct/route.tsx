@@ -19,6 +19,11 @@ export const PATCH = async(req:Request)=>{
         const product = await prisma.product.findUnique({
             where: {
                 id
+            },
+            select:{
+                votesCount:true,
+                rating:true,
+                id:true,
             }
         });
 

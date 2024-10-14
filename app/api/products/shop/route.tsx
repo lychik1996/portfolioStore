@@ -52,7 +52,7 @@ export const GET = async (req: Request) => {
           }),
           ...(collections &&
             collections !== 'All products' && {
-              collection: { hasSome: [collections.toLowerCase()] },
+              collection: { hasSome: [collections] },
             }),
           ...(tags.length > 0 && {
             tags: { hasSome: tags },
@@ -83,7 +83,7 @@ export const GET = async (req: Request) => {
           }),
           ...(collections &&
             collections !== 'All products' && {
-              collection: { hasSome: [collections.toLowerCase()] },
+              collection: { hasSome: [collections] },
             }),
           ...(tags.length > 0 && {
             tags: { hasSome: tags },

@@ -10,7 +10,7 @@ import ChooseParams from './ChooseParams';
 import axios from 'axios';
 import { toast } from 'sonner';
 import { useSession } from 'next-auth/react';
-import { v4 as uuidv4 } from 'uuid';
+
 
 interface ItemProps{
   id:string,
@@ -35,8 +35,8 @@ export default function Item({id}:{id:string}) {
   const [votesCount, setVotesCount] = useState(0);
   const [loading,setLoading] = useState(true);
   const [transitionRating, setTransitionRating] = useTransition();
+  const [counts, setCounts] = useState(1);
   
-
   useEffect(()=>{
     const getProduct = async()=>{
         const req = await axios.get('/api/products/getProduct',{params:{id}})
@@ -188,7 +188,7 @@ export default function Item({id}:{id:string}) {
             <div className="w-[29px] bg-red-700 h-[5px] rounded"></div>
           </div>
         </div>
-        <ChooseParams colors={product?.colors? product.colors :[]} sizes={product?.sizes? product.sizes :[]}/>
+        <ChooseParams colors={product?.colors? product.colors :[]} sizes={product?.sizes? product.sizes :[]} email={session?.user.email?  session?.user.email : null} productId={product.id}/>
         <SubInfo/>
       </div>
     </div>
