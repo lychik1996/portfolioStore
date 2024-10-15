@@ -1,47 +1,36 @@
 'use client';
 
 import { useModalDrawer } from '@/store/use-modalDrawer';
-import { useCallback, useEffect, useRef, useState } from 'react';
+import { Suspense, useCallback, useEffect, useRef, useState } from 'react';
 import { IoMdClose } from 'react-icons/io';
 import Item from './Item';
 import Link from 'next/link';
 import clsx from 'clsx';
 import Subtotal from './Subtotal';
 import useWindowWidth from '@/hooks/use-windowWidth';
-const arr = [
-  {
-    src: '1',
-    name: 'Denim Jacket',
-    color: 'Red',
-    price: 14.8,
-    count: 1,
-  },
-  {
-    src: '1',
-    name: 'Denim Jack',
-    color: 'Red',
-    price: 14.8,
-    count: 1,
-  },
-  {
-    src: '1',
-    name: 'Denim Jackkket',
-    color: 'Red',
-    price: 12,
-    count: 12,
-  },
-  {
-    src: '1',
-    name: 'Denim KKKKKKK',
-    color: 'Blue',
-    price: 16,
-    count: 2,
-  },
-];
+import { useSession } from 'next-auth/react';
+import axios from 'axios';
+
+import { useDrawerTrigger } from '@/store/use-drawerTrigger';
+import { CircularProgress } from '@mui/material';
+
+interface ItemProps {
+  id: string;
+  countsDrawer: number;
+  color: string;
+  size: String;
+  img: String;
+  price: number;
+  name: String;
+}
 export default function ModalDrawer() {
+  const { data: session } = useSession();
+  const [items, setItems] = useState<ItemProps[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [wrapParams, setWrapParams] = useState(false);
+  const { trigger } = useDrawerTrigger();
+
   const { isOpen, onClose } = useModalDrawer((state) => state);
-  const [items, setItems] = useState(arr);
-  const [subtotal, setSubtotal] = useState(0);
   const startX = useRef<number>(0);
   const startY = useRef<number>(0);
   const [translateX, setTranslateX] = useState<number>(0);
@@ -49,6 +38,24 @@ export default function ModalDrawer() {
   const modalRef = useRef<HTMLDivElement>(null);
   const [checkHidden, setCheckHidden] = useState(false);
   const windowWidth = useWindowWidth();
+
+  useEffect(() => {
+    const getItems = async () => {
+      await axios
+        .get('/api/products/drawer/get', {
+          params: { email: session?.user.email },
+        })
+        .then((res) => {
+          setItems(res.data.items);
+          setWrapParams(res.data.wrap);
+        })
+        .catch(() => console.error('Error load'))
+        .finally(() => setLoading(false));
+    };
+    if (session?.user.email) {
+      getItems();
+    }
+  }, [session?.user.email, trigger]);
 
   const handleTouchStart = useCallback((e: TouchEvent) => {
     startX.current = e.touches[0].clientX;
@@ -61,14 +68,14 @@ export default function ModalDrawer() {
     const currentX = e.touches[0].clientX;
     const distance = currentX - startX.current;
 
-    const currentY = e.touches[0].clientY; 
-    const distanceY = distance>10?0:Math.abs(currentY - startY.current);
-    
-    if(distanceY<15){
+    const currentY = e.touches[0].clientY;
+    const distanceY = distance > 10 ? 0 : Math.abs(currentY - startY.current);
+
+    if (distanceY < 15) {
       if (distance > 10) {
         setTranslateX(distance);
       }
-      if(distance>20){
+      if (distance > 20) {
         setCheckHidden(true);
       }
       if (distance > 70) {
@@ -103,15 +110,15 @@ export default function ModalDrawer() {
 
   useEffect(() => {
     if (!isOpen) {
-      document.documentElement.style.overflow='';
-      if(windowWidth >768){
-        document.documentElement.style.paddingRight="";
+      document.documentElement.style.overflow = '';
+      if (windowWidth > 768) {
+        document.documentElement.style.paddingRight = '';
       }
       setTranslateX(0);
-    }else{
-      document.documentElement.style.overflow='hidden';
-      if(windowWidth>768){
-        document.documentElement.style.paddingRight="17px";
+    } else {
+      document.documentElement.style.overflow = 'hidden';
+      if (windowWidth > 768) {
+        document.documentElement.style.paddingRight = '17px';
       }
     }
   }, [isOpen, windowWidth]);
@@ -130,22 +137,6 @@ export default function ModalDrawer() {
     }
   }, [isOpen, handleTouchEnd, handleTouchMove, handleTouchStart]);
 
-  ///del
-  useEffect(() => {
-    const newSubtotal = arr.reduce((acum, i) => acum + i.price * i.count, 0);
-    setSubtotal(newSubtotal);
-  }, [items]);
-  const updateItemCount = (index: number, newCount: number) => {
-    setItems((prevItems) => {
-      const updatedItems = [...prevItems];
-      if (newCount <= 0) {
-        updatedItems.splice(index, 1);
-      } else {
-        updatedItems[index].count = newCount;
-      }
-      return updatedItems;
-    });
-  };
   return (
     <>
       <div
@@ -154,7 +145,10 @@ export default function ModalDrawer() {
           isOpen ? 'block opacity-100' : 'opacity-0 pointer-events-none'
         )}
       >
-        <div onClick={() => debounceClose()} className="flex-1 cursor-pointer"></div>
+        <div
+          onClick={() => debounceClose()}
+          className="flex-1 cursor-pointer"
+        ></div>
         <div
           ref={modalRef}
           className="bg-white flex flex-row p-6 md:p-10 w-full sm:w-[70%] md:w-[65%] lg:w-[60%] xl:w-[50%] 2xl:w-[40%] fixed right-0 top-0 h-full"
@@ -169,33 +163,51 @@ export default function ModalDrawer() {
             <div>
               <h3 className=" text-2xl xl:text-3xl mb-4">Shopping Cart</h3>
               <p className="text-base lg:text-lg text-slate-500">
-                Buy <span className="font-bold text-black">$122.35</span>
-                More And Get
+                Buy <span className="font-bold text-black">$122.35 </span>
+                More And Get{' '}
                 <span className="font-bold text-black">Free Shipping</span>
               </p>
             </div>
-            <div
-              className={clsx(
-                'flex-1 border-b-[1px] border-slate-700  scrollbar-hide mt-3 pr-2',
-                checkHidden ? 'overflow-hidden' : 'overflow-y-scroll'
-              )}
-            >
-              <div className="flex flex-col gap-2">
-                {items.map((item, i) => (
-                  <Item
-                    key={i}
-                    item={item}
-                    onCountChange={(newCount) => updateItemCount(i, newCount)}
-                    styleDiv="flex flex-col justify-start gap-1 pt-2 md:pt-4 md:gap-3"
-                    styleBlock='bg-slate-100'
-                  />
-                ))}
+            {loading ? (
+              <div className="flex flex-1 justify-center items-center ">
+                <div className="flex flex-row gap-5 ">
+                  <h3 className="text-2xl">Loading...</h3>
+                  <CircularProgress color="inherit" />
+                </div>
               </div>
-            </div>
-            <Subtotal subtotal={subtotal} debounceClose={debounceClose}/>
+            ) : items.length < 1 ? (
+              <div className="flex-1 flex justify-center items-center text-xl">
+                Drawer is Empty
+              </div>
+            ) : (
+              <>
+                <div
+                  className={clsx(
+                    'flex-1 border-b-[1px] border-slate-700  scrollbar-hide mt-3 pr-2',
+                    checkHidden ? 'overflow-hidden' : 'overflow-y-scroll'
+                  )}
+                >
+                  <div className="flex flex-col gap-2">
+                    {items?.map((item, i) => (
+                      <Item
+                        key={i}
+                        item={item}
+                        styleDiv="flex flex-col justify-start gap-1 pt-2 md:pt-4 md:gap-3"
+                        styleBlock="bg-slate-100"
+                      />
+                    ))}
+                  </div>
+                </div>
+                <Subtotal
+                  wrapParams={wrapParams}
+                  debounceClose={debounceClose}
+                  email={session?.user.email}
+                />
+              </>
+            )}
             <Link
               href={'/drawer'}
-              onClick={()=>debounceClose()}
+              onClick={() => debounceClose()}
               className="text-center underline font-bold text-base md:text-xl pt-4"
             >
               View Cart

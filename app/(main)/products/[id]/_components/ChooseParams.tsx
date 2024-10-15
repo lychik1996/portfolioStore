@@ -1,4 +1,5 @@
 import ColorButton from "@/components/ColorButton";
+import { useDrawerTrigger } from "@/store/use-drawerTrigger";
 import axios from "axios";
 import clsx from "clsx";
 import { useState, useTransition } from "react";
@@ -16,6 +17,7 @@ export default function ChooseParams({ colors, sizes,email,productId }: ChoosePa
   const [color, setColor] = useState(0);
   const [quantity, setQuantity] = useState(1);
   const [transitionAddDrawer, setTransitioAddDrawer] = useTransition();
+  const {setTrigger} = useDrawerTrigger();
   const handleAddDrawerItem = ()=>{
     if(!email){
       toast.error("You must be authorized to add Drawer")
@@ -31,6 +33,7 @@ export default function ChooseParams({ colors, sizes,email,productId }: ChoosePa
       })
       .then(()=>toast.success("Product add to drawer"))
       .catch((error)=>toast.error(error.response?.data?.message))
+      setTrigger();
     })
   }
   return (

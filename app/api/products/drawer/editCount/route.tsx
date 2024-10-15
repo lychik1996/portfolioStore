@@ -45,6 +45,16 @@ export const POST =async (req:Request)=>{
                 })
             }
         }
+        const updatedDrawerItems = await prisma.drawerItem.findMany({
+          where: { drawerId: drawer.id }
+        });
+    
+        const newSubtotal = updatedDrawerItems.reduce((acum, item) => acum + item.price * item.countsDrawer, drawer.wrap? 10:0);
+        
+        await prisma.drawer.update({
+          where: { id: drawer.id },
+          data: { subtotal: newSubtotal }
+        });
         return new Response(JSON.stringify({ message: "Item quantity updated successfully" }), { status: 200 });
       }catch{
         return new Response(JSON.stringify({ message: "Something went wrong" }), { status: 500 });

@@ -18,8 +18,7 @@ export const POST = async (req: Request) => {
         status: 400,
       });
     }
-
-    const drawer = await prisma.drawer.findUnique({
+    let drawer = await prisma.drawer.findUnique({
       where: { userId: user.id },
       include: { items: true },
     });
@@ -30,7 +29,7 @@ export const POST = async (req: Request) => {
     }
     const product = await prisma.product.findUnique({
       where: { id: productId },
-      select: { price: true, smallImgs: true },
+      select: { price: true, bigImgs: true,name:true },
     });
 
     if (!product) {
@@ -38,10 +37,6 @@ export const POST = async (req: Request) => {
         status: 404,
       });
     }
-
-    const price = product.price;
-    const img = product.smallImgs[0];
-
     const existingItem = drawer.items.find(
       (item) =>
         item.productId === productId &&
@@ -56,20 +51,9 @@ export const POST = async (req: Request) => {
         data: { countsDrawer: updatedCount },
       });
     } else {
-      const product = await prisma.product.findUnique({
-        where: { id: productId },
-        select: { price: true, bigImgs: true },
-      });
-
-      if (!product) {
-        return new Response(JSON.stringify({ message: 'Product not found' }), {
-          status: 404,
-        });
-      }
-
       const price = product.price;
       const img = product.bigImgs[0];
-
+      const name = product.name;
       await prisma.drawerItem.create({
         data: {
           drawerId: drawer.id,
@@ -79,10 +63,25 @@ export const POST = async (req: Request) => {
           size: size,
           price: price,
           img: img,
+          name:name,
         },
       });
+    };
+    drawer = await prisma.drawer.findUnique({
+      where: { userId: user.id },
+      include: { items: true },
+    });
+    if(!drawer){
+      return new Response(JSON.stringify({ message: 'Failed to get drawer' }), {
+        status: 400,
+      });
     }
-
+    const newSubtotal = drawer.items.reduce((acum, item)=>acum +item.price*item.countsDrawer,0)+(drawer.wrap?10:0);
+    
+    await prisma.drawer.update({
+      where:{id:drawer.id},
+      data:{subtotal:newSubtotal}
+    })
     return new Response(
       JSON.stringify({
         message: 'Product added/update count to drawer successfully',

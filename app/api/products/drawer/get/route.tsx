@@ -14,7 +14,7 @@ export const GET = async (req: Request) => {
   try{
     const user = await getUser(email);
     if(!user){
-        return new Response(JSON.stringify({message:"failed to get user"}),{status:400})
+        return new Response(JSON.stringify({message:"Failed to get user"}),{status:400})
     };
     const drawer = await prisma.drawer.findUnique({
         where:{userId:user.id},
