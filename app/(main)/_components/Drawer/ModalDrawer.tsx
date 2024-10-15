@@ -22,6 +22,7 @@ interface ItemProps {
   img: String;
   price: number;
   name: String;
+  productId:string;
 }
 export default function ModalDrawer() {
   const { data: session } = useSession();
@@ -38,7 +39,7 @@ export default function ModalDrawer() {
   const modalRef = useRef<HTMLDivElement>(null);
   const [checkHidden, setCheckHidden] = useState(false);
   const windowWidth = useWindowWidth();
-
+  
   useEffect(() => {
     const getItems = async () => {
       await axios
@@ -190,8 +191,10 @@ export default function ModalDrawer() {
                   <div className="flex flex-col gap-2">
                     {items?.map((item, i) => (
                       <Item
-                        key={i}
+                        email={session?.user.email}
+                        key={i} 
                         item={item}
+                        debounceClose={debounceClose}
                         styleDiv="flex flex-col justify-start gap-1 pt-2 md:pt-4 md:gap-3"
                         styleBlock="bg-slate-100"
                       />

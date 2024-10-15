@@ -18,6 +18,7 @@ interface ItemProps {
   img: String;
   price: number;
   name: String;
+  productId:string;
 }
 export default function Drawer() {
   const { data: session } = useSession();
@@ -62,6 +63,7 @@ export default function Drawer() {
               <div className="flex flex-col gap-2">
                 {items.map((item, i) => (
                   <Item
+                    email={session?.user.email}
                     key={i}
                     item={item}
                     index={i}

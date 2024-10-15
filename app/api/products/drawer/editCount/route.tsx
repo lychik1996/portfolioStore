@@ -24,7 +24,11 @@ export const POST =async (req:Request)=>{
         if (!drawer) {
             return new Response(JSON.stringify({ message: 'Failed to get drawer' }), { status: 400 });
         }
-        const existingItem = drawer.items.find(item => item.productId === productId);
+        
+        
+        const existingItem = drawer.items.find(item => item.id === productId);
+        
+        
         if(!existingItem){
             return new Response(JSON.stringify({message:"Failed to get Product"}),{status:400})
         }

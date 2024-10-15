@@ -18,7 +18,11 @@ export const GET = async (req: Request) => {
     };
     const drawer = await prisma.drawer.findUnique({
         where:{userId:user.id},
-        include:{items:true},
+        include:{items:{
+          orderBy:{
+            createdAt:'asc'
+          }
+        }},
     });
     if (!drawer) {
         return new Response(JSON.stringify({ message: 'Failed to get drawer' }), {

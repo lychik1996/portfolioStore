@@ -67,6 +67,7 @@ model DrawerItem{
   img String
   price Float
   name String
+  createdAt DateTime  @default(now())
   drawer Drawer @relation(fields: [drawerId], references: [id])
   product Product @relation(fields: [productId],references: [id])
 }

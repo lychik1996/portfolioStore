@@ -54,7 +54,7 @@ export default function Item({ item }: ItemProps) {
       </Link>
       <div className="flex flex-col gap-2">
         <Link href={`/products/${item.id}`} className="cursor-pointer">
-          <h4 className='max-w-36 md:max-w-44  md:whitespace-normal md:overflow-visible'>{item.name}</h4>
+          <h4 className='max-w-36 md:max-w-44 truncate  md:whitespace-normal md:overflow-visible'>{item.name}</h4>
         </Link>
 
         <div className="flex flex-row gap-2">

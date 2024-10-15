@@ -37,11 +37,11 @@ export default function Subtotal({wrapParams,email, debounceClose}:SubtotalProps
       })
       .then((res)=>{
         setWrap(res.data);
-        toast.success("Add wrapping");
+        toast.success("Wrapping success");
       }
         )
       .catch(()=>{
-        toast.error("Failed to add wrapping")
+        toast.error("Failed to wrapping")
       })
     })
   }
