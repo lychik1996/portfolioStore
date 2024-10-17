@@ -22,7 +22,7 @@ export default function HeaderAction({ search, setSearch }: HeaderActionProps) {
       <Image src="/home/header/user.svg" alt='' width='18' height="18" className='cursor-pointer'/>
         
       </Link>
-      <Link href="/products/125">
+      <Link href="/favorite">
       {/* change link */}
       <Image src="/home/header/favorite.svg" alt='' width='18' height="18" className='cursor-pointer'/>
       </Link>

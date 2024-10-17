@@ -86,6 +86,7 @@ model Favorite{
   userId String @db.Uuid @unique
   user User @relation(fields: [userId],references: [id])
   products Product[] @relation("FavoriteProducts")
+  @@unique([userId, id])
 }
 
 model Order {

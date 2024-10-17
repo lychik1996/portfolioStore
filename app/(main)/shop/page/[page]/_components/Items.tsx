@@ -1,11 +1,13 @@
 
 import { useEffect, useRef, useState } from 'react';
-import Item from './Item';
+import Item from '../../../../../../components/Item';
 import axios from 'axios';
 import { CircularProgress } from '@mui/material';
 import { useFilterStore } from '@/store/use-filterStore';
 import { useDebounce } from '@/hooks/useDebounce';
 import useWindowWidth from '@/hooks/use-windowWidth';
+import { useSession } from 'next-auth/react';
+
 
 
 
@@ -17,13 +19,16 @@ interface ItemProps{
   colors:string[],
   counts:number,
   id:string,
+  isFavorite:boolean,
 }
 export default function Items({ page }: { page: number }) {
+  const {data:session} = useSession();
   const [items,setItems] = useState<ItemProps[]>([]);
   const [loading,setLoading] = useState(true);
   const { sizes, colors, prices, brands, collections, tags } = useFilterStore();
   const windowWidth = useWindowWidth();
   const debounceWindowWidth:number = useDebounce(windowWidth,300);
+  
   
   const count = debounceWindowWidth>697?9:8;
   const debouncedSizes = useDebounce(sizes, 500);
@@ -32,7 +37,6 @@ export default function Items({ page }: { page: number }) {
   const debouncedBrands = useDebounce(brands, 500);
   const debouncedCollections = useDebounce(collections, 500);
   const debouncedTags = useDebounce(tags, 500);
-  
   useEffect(() => {
     const getItems = async () => {
             setLoading(true);
@@ -47,6 +51,7 @@ export default function Items({ page }: { page: number }) {
                         brands: debouncedBrands.length > 0 ? debouncedBrands : undefined,
                         collections: debouncedCollections !== 'All products' ? debouncedCollections : undefined,
                         tags: debouncedTags.length > 0 ? debouncedTags : undefined,
+                        email:session?.user.email? session.user.email : undefined,
                     }
                 });
                 setItems(res.data);
@@ -57,7 +62,9 @@ export default function Items({ page }: { page: number }) {
             }
         }
     getItems();
-}, [page, debouncedSizes, debouncedColors, debouncedPrices, debouncedBrands, debouncedCollections, debouncedTags, count, debounceWindowWidth]);
+}, [page, debouncedSizes, debouncedColors, debouncedPrices, debouncedBrands, debouncedCollections, debouncedTags, count, debounceWindowWidth,session?.user.email]);
+    
+    
     
     if(loading){
       return(
@@ -80,7 +87,7 @@ export default function Items({ page }: { page: number }) {
     <div className="flex flex-row justify-center flex-wrap ">
       
       {items?.map((item, i) => (
-        <Item key={i} item={item} />
+        <Item key={i} item={item} email={session?.user.email}/>
       ))}
     </div>
   );

@@ -1,9 +1,11 @@
+import getUser from '@/lib/getUser';
 import { prisma } from '@/lib/prisma';
 
 export const GET = async (req: Request) => {
   const url = new URL(req.url);
   const page = Number(url.searchParams.get('page'));
   const counts = Number(url.searchParams.get('count'));
+  const email = url.searchParams.get('email');
 
   const sizes = url.searchParams.getAll('sizes[]');
   const colors = url.searchParams.getAll('colors[]');
@@ -35,6 +37,8 @@ export const GET = async (req: Request) => {
   });
 
   try {
+    const user = email ? await getUser(email) : null;
+    const userId = user?.id;
     if (!page || !counts) {
       const countItems = await prisma.product.count({
         where: {
@@ -89,6 +93,9 @@ export const GET = async (req: Request) => {
             tags: { hasSome: tags },
           }),
         },
+        include: {
+          favorites: userId ? { where: { userId } } : false,
+        },
       });
 
       const formattedProducts = products.map((item) => ({
@@ -99,6 +106,7 @@ export const GET = async (req: Request) => {
         colors: item.colors,
         counts: item.counts,
         id:item.id,
+        isFavorite:item.favorites.length > 0,
       }));
       return new Response(JSON.stringify(formattedProducts), { status: 200 });
     }
