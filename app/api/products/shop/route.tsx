@@ -106,7 +106,7 @@ export const GET = async (req: Request) => {
         colors: item.colors,
         counts: item.counts,
         id:item.id,
-        isFavorite:item.favorites.length > 0,
+        isFavorite: userId ? item.favorites.length > 0 : false,
       }));
       return new Response(JSON.stringify(formattedProducts), { status: 200 });
     }
