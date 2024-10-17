@@ -2,6 +2,7 @@ import ColorButton from "@/components/ColorButton";
 import { useDrawerTrigger } from "@/store/use-drawerTrigger";
 import axios from "axios";
 import clsx from "clsx";
+import Link from "next/link";
 import { useState, useTransition } from "react";
 import { toast } from "sonner";
 
@@ -84,9 +85,12 @@ export default function ChooseParams({ colors, sizes,email,productId }: ChoosePa
             +
           </button>
         </div>
-        <button className="flex-1 border-[1px] rounded border-black disabled:opacity-50" onClick={()=>handleAddDrawerItem()} disabled={transitionAddDrawer}>
+        {email?<button className="flex-1 border-[1px] rounded border-black disabled:opacity-50" onClick={()=>handleAddDrawerItem()} disabled={transitionAddDrawer}>
           Add to Card
-        </button>
+        </button>:<Link href={'/signIn'} className="flex-1 border-[1px] rounded border-black flex items-center justify-center">
+          Login for add to Card
+          </Link>}
+        
       </div>
     </>
   );

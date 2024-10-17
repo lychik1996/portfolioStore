@@ -10,6 +10,7 @@ import ChooseParams from './ChooseParams';
 import axios from 'axios';
 import { toast } from 'sonner';
 import { useSession } from 'next-auth/react';
+import { FaRegStar, FaStar } from 'react-icons/fa';
 
 
 interface ItemProps{
@@ -25,31 +26,36 @@ interface ItemProps{
   discountTime: Date | null,
   rating:string,
   votesCount:number,
+  isFavorite: boolean | null,
 }
 export default function Item({id}:{id:string}) {
   
   const {data:session} = useSession();
   const [product, setProduct] = useState<ItemProps | null>(null);
+  const [isFav,setIsFav] = useState<boolean | null>(null);
+  
   const [src, setSrc] = useState(0);
   const [rating, setRating] = useState(0);
   const [votesCount, setVotesCount] = useState(0);
   const [loading,setLoading] = useState(true);
   const [transitionRating, setTransitionRating] = useTransition();
   const [counts, setCounts] = useState(1);
+  const [transitionFavorite, setTransitionFavorite] = useTransition();
   
   useEffect(()=>{
     const getProduct = async()=>{
-        const req = await axios.get('/api/products/getProduct',{params:{id}})
+        await axios.get('/api/products/getProduct',{params:{id,email:session?.user.email}})
         .then(res=>{
           setProduct(res.data);
           setRating(res.data.rating);
           setVotesCount(res.data.votesCount);
+          setIsFav(res.data.isFavorite);
         })
         .catch((error)=>toast.error(error.response?.data?.message))
         .finally(()=>setLoading(false))
     }
     getProduct()
-  },[id]);
+  },[id,session?.user.email]);
   const handleRatingChange = (newRating:number)=>{
     
       if(!session?.user.email){
@@ -70,7 +76,24 @@ export default function Item({id}:{id:string}) {
         .catch((error)=>toast.error(error.response?.data?.message))
       });
   }
-  
+  const toggleFavorite = ()=>{
+    setTransitionFavorite(async() =>{
+      if(!product){
+        return
+      }
+        await axios.post('/api/products/favorite/toggle',{
+          email:session?.user.email,
+          productId:product.id,
+        })
+        .then(()=>{
+          toast.success("Favorite updated successfully");
+          setIsFav(prev=>!prev)  
+        })
+        .catch((error)=>{
+          toast.error(error.response?.data.message)
+        })
+    })
+  }
   if(loading){
     return(
       <div className="flex-1 flex justify-center w-full pt-32 sm:pt-52  min-h-[1300px] md:min-h-[855px]">
@@ -125,15 +148,13 @@ export default function Item({id}:{id:string}) {
         <h4 className="text-slate-400 text-sm">Fasco</h4>
         <div className="flex flex-row justify-between items-center">
           <h3 className="text-xl lg:text-2xl">{product?.name}</h3>
-          <div className="rounded-full border-[1px] p-2 border-slate-200 cursor-pointer">
-            <Image
-              src="/products/favorite.svg"
-              alt=""
-              width={18.5}
-              height={17.8}
-              className="border-dashed border-[1px]"
-            />
-          </div>
+          {isFav!==null && <button className={clsx(
+      " rounded-full p-2 bg-white/30 border-2 border-slate-400",
+      transitionFavorite && "opacity-50"
+          )} disabled={transitionFavorite} onClick={()=>toggleFavorite()}>
+          {isFav?<FaStar />:<FaRegStar/>}
+          </button>}
+  
         </div>
         <div className="flex flex-row items-center">
           <Rating
